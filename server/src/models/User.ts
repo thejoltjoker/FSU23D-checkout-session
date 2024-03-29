@@ -1,5 +1,3 @@
-export type User = {
-  userId: string;
-  email: string;
-  password: string;
-};
+export class User {
+  constructor(public email: string, public password: string) {}
+}

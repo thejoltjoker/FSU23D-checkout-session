@@ -4,7 +4,7 @@ import {
   create as createUser,
   get as getUser,
   remove as removeUser,
-  update as updateUser,
+  upsert as updateUser,
 } from "../services/user.service";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {

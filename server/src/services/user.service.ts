@@ -7,40 +7,29 @@ const defaultData = {
   users: [],
 };
 
-export const get = async (userId: string): Promise<User | undefined> => {
+export const get = async (email: string): Promise<User | undefined> => {
   const data = await read<UserJson>(userJsonPath);
-  return data?.users.find((user) => user.userId === userId);
+  return data?.users.find((user) => user.email === email);
 };
 
-export const create = async (user: User): Promise<User | undefined> => {
+export const upsert = async (user: User): Promise<boolean> => {
   const data = (await read<UserJson>(userJsonPath)) ?? defaultData;
-  const existingUser = data.users.find((u) => u.userId === user.userId);
-  if (existingUser) {
-    return existingUser;
-  }
-
-  data.users.push(user);
-  await write(userJsonPath, data);
-  return user;
-};
-
-export const update = async (userId: string, user: User): Promise<boolean> => {
-  const data = (await read<UserJson>(userJsonPath)) ?? defaultData;
-  const existingUser = data.users.find((u) => u.userId === user.userId);
+  const existingUser = data.users.find((u) => u.email === user.email);
   if (existingUser) {
     data.users = data.users.map((dbUser) =>
-      dbUser.userId === userId ? { dbUser, ...user } : dbUser
+      dbUser.email === user.email ? user : dbUser
     );
+  } else {
+    data.users.push(user);
   }
 
-  data.users.push(user);
   return await write(userJsonPath, data);
 };
 
-export const remove = async (userId: string) => {
+export const remove = async (email: string) => {
   const data = await read<UserJson>(userJsonPath);
   if (data) {
-    data.users = data.users.filter((user) => user.userId != userId);
+    data.users = data.users.filter((user) => user.email != email);
     await write(userJsonPath, data);
   }
 };
