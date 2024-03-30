@@ -19,9 +19,11 @@ export const register = async (
   try {
     const { email, password } = req.body;
     const exisitingUser = await getUser(email);
-    if (!exisitingUser) {
+
+    if (exisitingUser) {
       return res.status(StatusCodes.CONFLICT).json("User exists");
     }
+
     const passwordHash = await bcrypt.hash(password, 12);
     await upsertUser(new User(email, passwordHash));
     return res.status(StatusCodes.CREATED).json("User created");

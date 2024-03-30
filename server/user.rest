@@ -1,0 +1,26 @@
+# Existing user
+GET http://localhost:3000/api/user/8eb1b522f60d11fa897de1dc6351b7e8
+###
+# Non-existing user
+GET http://localhost:3000/api/user/123
+###
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password"
+}
+
+###
+PUT http://localhost:3000/api/user/1
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password"
+}
+
+###
+DELETE http://localhost:3000/api/user/1
+###

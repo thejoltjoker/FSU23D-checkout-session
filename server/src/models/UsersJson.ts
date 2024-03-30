@@ -1,5 +1,5 @@
 import { User } from "./User";
 
-export type UserJson = {
+export type UsersJson = {
   users: User[];
 };
