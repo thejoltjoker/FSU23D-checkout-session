@@ -9,16 +9,15 @@ import helmet from "helmet";
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-app.use(cors());
+app.use(helmet());
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(
   cookieSession({
-    name: "session",
     secret: process.env.SESSION_SECRET ?? "diagram-festive-plaything",
     maxAge: 24 * 60 * 60 * 1000,
   })
 );
-app.use(helmet());
 
 app.use("/api", router);
 
