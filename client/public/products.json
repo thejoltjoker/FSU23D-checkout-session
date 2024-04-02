@@ -1,0 +1,50 @@
+[
+  {
+    "id": "111111111",
+    "name": "Saguaro Cactus",
+    "scientificName": "Carnegiea gigantea",
+    "description": "The Saguaro Cactus is an iconic symbol of the American Southwest. It can grow to enormous heights and has distinctive arms.",
+    "price": 39.99,
+    "currency": "USD",
+    "slug": "saguaro-cactus",
+    "stock": 15,
+    "category": "Cacti",
+    "tags": ["cactus", "desert", "Southwest", "iconic"]
+  },
+  {
+    "id": "222222222",
+    "name": "Prickly Pear Cactus",
+    "scientificName": "Opuntia",
+    "description": "The Prickly Pear Cactus is known for its flat, paddle-shaped stems and colorful flowers. It produces edible fruit known as prickly pears.",
+    "price": 24.99,
+    "currency": "USD",
+    "slug": "prickly-pear-cactus",
+    "stock": 30,
+    "category": "Cacti",
+    "tags": ["cactus", "succulent", "desert", "prickly pear"]
+  },
+  {
+    "id": "333333333",
+    "name": "Barrel Cactus",
+    "scientificName": "Ferocactus",
+    "description": "The Barrel Cactus is named for its cylindrical shape and ribbed texture. It's a popular choice for xeriscaping due to its low water needs.",
+    "price": 19.99,
+    "currency": "USD",
+    "slug": "barrel-cactus",
+    "stock": 25,
+    "category": "Cacti",
+    "tags": ["cactus", "succulent", "desert", "barrel"]
+  },
+  {
+    "id": "444444444",
+    "name": "Fishhook Barrel Cactus",
+    "scientificName": "Ferocactus wislizeni",
+    "description": "The Fishhook Barrel Cactus is named for its hooked spines. It's native to the southwestern United States and northern Mexico.",
+    "price": 27.99,
+    "currency": "USD",
+    "slug": "fishhook-barrel-cactus",
+    "stock": 18,
+    "category": "Cacti",
+    "tags": [cactus,desert,barrel,hooked spines]
+  }
+]
