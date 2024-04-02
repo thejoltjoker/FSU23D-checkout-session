@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { User } from "../schemas/UserSchema";
 
 export type UsersJson = {
   users: User[];

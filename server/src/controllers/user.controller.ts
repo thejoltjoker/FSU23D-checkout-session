@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../models/User";
+
 import {
   get as getUser,
   remove as removeUser,
@@ -20,22 +20,25 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export const update = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await upsertUser(new User(req.body.email, req.body.email));
-    if (!user) {
-      return res.status(StatusCodes.NOT_FOUND).json("Couldn't find user");
-    }
-    res.status(StatusCodes.OK).json(user);
-  } catch (err) {
-    console.error(`Error while updating user`, err);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
-  }
-};
+// export const update = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const user = await upsertUser({
+//       email: req.body.email,
+//       password: req.body.password,
+//     });
+//     if (!user) {
+//       return res.status(StatusCodes.NOT_FOUND).json("Couldn't find user");
+//     }
+//     res.status(StatusCodes.OK).json(user);
+//   } catch (err) {
+//     console.error(`Error while updating user`, err);
+//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
+//   }
+// };
 
 export const remove = async (
   req: Request<{ userId: string }, {}, {}, {}>,

@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { get as getUser, upsert as upsertUser } from "../services/user.service";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
-import { User } from "../models/User";
 
 interface RegisterRequest extends Request {
   body: {
@@ -25,7 +24,7 @@ export const register = async (
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-    await upsertUser(new User(email, passwordHash));
+    await upsertUser({ email: email, password: passwordHash });
     return res.status(StatusCodes.CREATED).json("User created");
   } catch (error) {
     console.error("Failed to retrieve user", error);

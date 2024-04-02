@@ -1,5 +1,5 @@
-import { User } from "../models/User";
 import { UsersJson } from "../models/UsersJson";
+import { User } from "../schemas/UserSchema";
 import { read, write } from "./json.service";
 import path from "path";
 const userJsonPath = path.resolve(__dirname, "../data/users.json");
