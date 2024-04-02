@@ -38,12 +38,26 @@ export const retrieveCustomer = async (customerId: string) => {
   }
 };
 
-export const retrieveProduct = async (productId: string) => {
+export const retrieveProduct = async (
+  productId: string
+): Promise<Stripe.Response<Stripe.Product>> => {
   try {
     const response = await stripe.products.retrieve(productId);
     return response;
   } catch (error) {
     console.error("Error when retrieving product", error);
+    throw error;
+  }
+};
+
+export const listProducts = async (
+  params?: Stripe.ProductListParams
+): Promise<Stripe.Response<Stripe.ApiList<Stripe.Product>>> => {
+  try {
+    const response = await stripe.products.list(params);
+    return response;
+  } catch (error) {
+    console.error("Error when listing products", error);
     throw error;
   }
 };

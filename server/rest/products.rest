@@ -1,0 +1,6 @@
+# List all products
+GET http://localhost:3000/api/products/
+
+###
+# Get one product
+GET http://localhost:3000/api/products/prod_Pqk0hiP7dP0YOI
