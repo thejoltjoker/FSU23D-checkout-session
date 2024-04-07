@@ -1,10 +1,5 @@
 import axios from "axios";
-import Stripe from "stripe";
 import { ServicePointByPostalCodeResponse } from "../models/Postnord";
-
-export const stripe = new Stripe(process.env.STRIPE_API_KEY ?? "", {
-  apiVersion: "2023-10-16",
-});
 
 export const servicePointsFromPostalCode = async (
   postalCode: string
@@ -30,7 +25,7 @@ export const servicePointsFromPostalCode = async (
     const response = await axios.request(options);
     return response.data;
   } catch (error) {
-    console.error("Error when creating customer", error);
+    console.error("Error when getting service points", error);
     throw error;
   }
 };
