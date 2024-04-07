@@ -4,7 +4,6 @@ import authCheck from "../middleware/authCheck";
 
 export const router = express.Router();
 
-// TODO add auth check
 router.post("/session/create", authCheck, createSession);
 router.get("/session/:sessionId", authCheck, getSession);
 

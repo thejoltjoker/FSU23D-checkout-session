@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+
+import { Button } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
 import { User } from "../models/User";
 import { login } from "../services/auth.service";
@@ -25,7 +26,7 @@ const LoginPage = () => {
     if (user?.email) navigate("/account");
   }, [user, navigate]);
   return (
-    <div className="flex h-screen -mt-navbar">
+    <div className="-mt-navbar flex h-screen">
       <div className="h-screen w-1/2 bg-fern-200">
         <img
           src="/img/login-cactus.jpg"
@@ -75,7 +76,7 @@ const LoginPage = () => {
               </a>
               .
             </p>
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" isDisabled={isLoading}>
               {isLoading ? "Logging in" : "Log in"}
             </Button>
           </form>

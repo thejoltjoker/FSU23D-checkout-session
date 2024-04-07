@@ -1,6 +1,4 @@
-type Props = {};
-
-const CancelPage = (props: Props) => {
+const CancelPage = () => {
   return <div>CancelPage</div>;
 };
 

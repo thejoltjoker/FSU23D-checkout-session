@@ -1,4 +1,4 @@
-import Button from "../components/Button";
+import { Button } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
 
 const AccountPage = () => {

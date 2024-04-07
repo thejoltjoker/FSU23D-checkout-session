@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 import PlantListingItem from "../components/PlantListingItem";
-import { Product } from "../models/ProductsResponse";
+
+import { Product } from "../models/Product";
 import { getAllProducts } from "../services/products.service";
 
 const ShopPage = () => {

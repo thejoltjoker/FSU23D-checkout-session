@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+
+import { Button } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
 import { User } from "../models/User";
 import { register } from "../services/auth.service";
@@ -75,7 +76,7 @@ const RegisterPage = () => {
               </a>
               .
             </p>
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" isDisabled={isLoading}>
               {isLoading ? "Signing up" : "Create account"}
             </Button>
           </form>

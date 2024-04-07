@@ -1,7 +1,7 @@
 import getSymbolFromCurrency from "currency-symbol-map";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Product } from "../models/Product";
-import Button from "./Button";
+import { Button } from "./Button";
 
 const CartSummary = () => {
   const { products } = useShoppingCartContext();

@@ -2,11 +2,15 @@ import CartListingItem from "../components/CartListingItem";
 import CartSummary from "../components/CartSummary";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Product } from "../models/Product";
+
+// TODO Add items one by one instead of quantity?
+// TODO Send coupon to checkout
+// TODO add checkout functionality
 const CartPage = () => {
   const { products } = useShoppingCartContext();
 
   return (
-    <div className="pt-navbar mx-auto flex h-screen max-w-screen-xl gap-16 py-24">
+    <div className="mx-auto flex h-screen max-w-screen-xl gap-16 py-24 pt-navbar">
       <div className="w-2/3">
         <section className="mb-8">
           <h2 className="text-4xl">Your cart</h2>

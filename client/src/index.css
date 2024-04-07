@@ -15,3 +15,9 @@
     @apply font-serif;
   }
 }
+
+@layer components {
+  .react-aria-Button {
+    @apply h-12 rounded-full bg-fern-500 px-3 font-bold text-white;
+  }
+}
