@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { createCustomer, searchCustomers } from "../services/stripe.service";
+import { stripe } from "../services/stripe.service";
 import { get as getUser, upsert as upsertUser } from "../services/user.service";
 
 interface RegisterRequest extends Request {
@@ -26,11 +26,13 @@ export const register = async (
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-    const customerSearchResponse = await searchCustomers(`email:'${email}'`);
+    const customerSearchResponse = await stripe.customers.search({
+      query: `email:'${email}'`,
+    });
     const existingCustomer = customerSearchResponse.data[0];
     let customer = existingCustomer;
     if (!existingCustomer) {
-      customer = await createCustomer({ name: name, email: email });
+      customer = await stripe.customers.create({ name: name, email: email });
     }
     await upsertUser({
       name: name,

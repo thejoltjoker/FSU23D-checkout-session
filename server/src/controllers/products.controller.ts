@@ -1,12 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { StatusCodes } from "http-status-codes";
-import {
-  listCoupons,
-  listPrices,
-  listProducts,
-  retrieveProduct,
-} from "../services/stripe.service";
+import { stripe } from "../services/stripe.service";
 
 interface GetProductRequest extends Request {
   params: {
@@ -19,9 +14,11 @@ export const getProduct = async (
   next: NextFunction
 ) => {
   try {
-    const products = await retrieveProduct(req.params.productId, {
+    const { productId } = req.params;
+    const params = {
       expand: ["default_price"],
-    });
+    };
+    const products = await stripe.products.retrieve(productId, params);
     res.status(StatusCodes.OK).json(products);
   } catch (error) {
     console.error("Failed to get product", error);
@@ -35,7 +32,8 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const products = await listProducts({ expand: ["data.default_price"] });
+    const params = { expand: ["data.default_price"] };
+    const products = await stripe.products.list(params);
     res.status(StatusCodes.OK).json(products);
   } catch (error) {
     console.error("Failed to get products", error);
@@ -55,7 +53,8 @@ export const getAllPrices = async (
   next: NextFunction
 ) => {
   try {
-    const prices = await listPrices({ product: req.params.productId });
+    const params = { product: req.params.productId };
+    const prices = await stripe.prices.list(params);
     res.status(StatusCodes.OK).json(prices);
   } catch (error) {
     console.error("Failed to get prices", error);
@@ -69,8 +68,7 @@ export const getAllCoupons = async (
   next: NextFunction
 ) => {
   try {
-    const coupons = await listCoupons();
-    console.log(coupons);
+    const coupons = await stripe.coupons.list();
     res.status(StatusCodes.OK).json(coupons);
   } catch (error) {
     console.error("Failed to get coupons", error);

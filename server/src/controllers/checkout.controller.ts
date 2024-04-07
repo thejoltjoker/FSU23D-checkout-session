@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import Stripe from "stripe";
-import {
-  createCheckoutSession,
-  retrieveCheckoutSession,
-} from "../services/stripe.service";
+import { stripe } from "../services/stripe.service";
 
 interface CreateSessionRequest extends Request {
   body: Stripe.Checkout.SessionCreateParams;
@@ -16,7 +13,7 @@ export const createSession = async (
   next: NextFunction
 ) => {
   try {
-    const createSessionParams: Stripe.Checkout.SessionCreateParams = {
+    const params: Stripe.Checkout.SessionCreateParams = {
       ...{
         mode: "payment",
         success_url:
@@ -26,9 +23,9 @@ export const createSession = async (
       },
       ...req.body,
     };
-    const response = await createCheckoutSession(createSessionParams);
-    console.log(response);
-    res.status(StatusCodes.OK).json(response);
+    const session = await stripe.checkout.sessions.create(params);
+    console.log(session);
+    res.status(StatusCodes.OK).json(session);
   } catch (error) {
     console.error("Failed to create checkout session", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
@@ -45,10 +42,9 @@ export const getSession = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.params.sessionId);
-    const response = await retrieveCheckoutSession(req.params.sessionId);
-    console.log(response);
-    res.status(StatusCodes.OK).json(response);
+    const { sessionId } = req.params;
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    res.status(StatusCodes.OK).json(session);
   } catch (error) {
     console.error("Failed to create checkout session", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
