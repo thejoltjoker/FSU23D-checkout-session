@@ -1,19 +1,18 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { RouterProvider } from "react-router-dom";
+import { ShoppingCartContext } from "./contexts/ShoppingCartContext";
 import { UserContext } from "./contexts/UserContext";
 import { User } from "./models/User";
+import {
+  initialState,
+  shoppingCartReducer,
+} from "./reducers/shoppingCartReducer";
 import { router } from "./routers/MainRouter";
 
 const App = () => {
   const [user, setUser] = useState<User>();
-  // const [shoppingCart, setShoppingCart] = useState<Product[]>([]);
-
-  // const [state, dispatch] = useReducer(shoppingCartReducer, initialState);
-
-  // <ShoppingCartContext.Provider value={{ state, dispatch }}>
-  //   {children}
-  // </ShoppingCartContext.Provider>
+  const [products, dispatch] = useReducer(shoppingCartReducer, initialState);
 
   useEffect(() => {
     let ignore = false;
@@ -37,11 +36,9 @@ const App = () => {
   return (
     <>
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
-        {/* <ShoppingCartContext.Provider
-          value={{ cart: shoppingCart, setCart: setShoppingCart }}
-        > */}
-        <RouterProvider router={router} />
-        {/* </ShoppingCartContext.Provider> */}
+        <ShoppingCartContext.Provider value={{ products, dispatch }}>
+          <RouterProvider router={router} />
+        </ShoppingCartContext.Provider>
       </UserContext.Provider>
     </>
   );

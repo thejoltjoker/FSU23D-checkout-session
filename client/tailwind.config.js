@@ -12,6 +12,9 @@ export default {
         sans: ['"Libre Franklin"', ...defaultTheme.fontFamily.sans],
         serif: ['"DM Serif Display"', ...defaultTheme.fontFamily.serif],
       },
+      spacing: {
+        navbar: "4rem",
+      },
       colors: {
         dawn: {
           50: "#f7f7f5",

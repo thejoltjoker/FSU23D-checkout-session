@@ -1,31 +1,15 @@
-import { Dispatch, SetStateAction, createContext, useContext } from "react";
-import { CartItem } from "../models/CartItem";
+import { Dispatch, createContext, useContext } from "react";
+import { Product } from "../models/ProductsResponse";
+import { ShoppingCartAction } from "../reducers/shoppingCartReducer";
 
-export type ShoppingCartContent = {
-  cart: CartItem[];
-  setCart: Dispatch<SetStateAction<CartItem[]>>;
+type ShoppingCartContent = {
+  products: Product[];
+  dispatch: Dispatch<ShoppingCartAction>;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContent>({
-  cart: [],
-  setCart: () => {},
+  products: [],
+  dispatch: () => {},
 });
 
 export const useShoppingCartContext = () => useContext(ShoppingCartContext);
-
-
-
-
-
-
-// Create the context
-// const ShoppingCartContext = createContext<{
-//   items: [];
-//   dispatch: React.Dispatch<ShoppingCartAction>;
-// }>({
-//   state: [],
-//   dispatch: () => null,
-// });
-
-// // Custom hook to consume the context
-// export const useShoppingCart = () => useContext(ShoppingCartContext);

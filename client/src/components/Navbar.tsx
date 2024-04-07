@@ -5,8 +5,8 @@ import { useUserContext } from "../contexts/UserContext";
 const Navbar = () => {
   const { user } = useUserContext();
   return (
-    <div className="fixed w-full">
-      <nav className="mx-auto flex h-16 w-full max-w-screen-xl items-center">
+    <div className="relative z-50 h-navbar w-full">
+      <nav className="mx-auto flex h-navbar w-full max-w-screen-xl items-center">
         <h3 className="me-12">
           <NavLink to={"/"}>
             <span className="text-xl">🌵</span>
@@ -18,26 +18,19 @@ const Navbar = () => {
             <NavLink to={"/plants"}>Plants</NavLink>
           </li>
           <li>
-            <NavLink to={"/register"}>Register</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/login"}>Login</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/logout"}>Logout</NavLink>
+            <NavLink to={"/about"}>About</NavLink>
           </li>
         </ul>
         <ul className="ml-auto flex gap-8">
           <li className="text-lg">
-            <button>
-              {user && "Account"}
+            <NavLink to={user ? "/account" : "/login"}>
               <FaUser />
-            </button>
+            </NavLink>
           </li>
           <li className="text-xl">
-            <button>
+            <NavLink to={"/cart"}>
               <FaCartShopping />
-            </button>
+            </NavLink>
           </li>
         </ul>
       </nav>

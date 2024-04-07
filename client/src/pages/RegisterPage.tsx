@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
 import { User } from "../models/User";
-import { login } from "../services/auth.service";
+import { register } from "../services/auth.service";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const response = await login(email, password);
+    const response = await register(email, password);
     if (response) {
       setUser(new User(email));
       setIsLoading(false);
@@ -25,7 +25,7 @@ const LoginPage = () => {
     if (user?.email) navigate("/account");
   }, [user, navigate]);
   return (
-    <div className="flex h-screen -mt-navbar">
+    <div className="-mt-navbar flex h-screen">
       <div className="h-screen w-1/2 bg-fern-200">
         <img
           src="/img/login-cactus.jpg"
@@ -35,7 +35,7 @@ const LoginPage = () => {
       </div>
       <div className="relative flex w-1/2 items-center bg-white">
         <div className="mx-auto max-w-md">
-          <h2 className="mb-4 text-center text-6xl">🏜️ Login</h2>
+          <h2 className="mb-4 text-center text-6xl">Register</h2>
 
           <form
             className="flex flex-col gap-4 px-12 text-center"
@@ -69,14 +69,14 @@ const LoginPage = () => {
               placeholder="Password"
             />
             <p className="text-sm">
-              By logging in, you acknowledge and agree to the{" "}
+              By signing up, you acknowledge and agree to the{" "}
               <a href="" className="text-fern-500">
                 terms and conditions
               </a>
               .
             </p>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Logging in" : "Log in"}
+              {isLoading ? "Signing up" : "Create account"}
             </Button>
           </form>
         </div>
@@ -91,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

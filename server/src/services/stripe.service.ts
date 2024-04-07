@@ -15,19 +15,6 @@ export const createCustomer = async (customer: Customer) => {
   }
 };
 
-export const updateCustomer = async (
-  customerId: string,
-  customer: Customer
-) => {
-  try {
-    const response = await stripe.customers.update(customerId);
-    return response;
-  } catch (error) {
-    console.error("Error when retrieving customer", error);
-    throw error;
-  }
-};
-
 export const retrieveCustomer = async (customerId: string) => {
   try {
     const response = await stripe.customers.retrieve(customerId);
@@ -38,11 +25,25 @@ export const retrieveCustomer = async (customerId: string) => {
   }
 };
 
+export const searchCustomers = async (query: string) => {
+  try {
+    const response = await stripe.customers.search({
+      query: query,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error when searching for customer", error);
+    throw error;
+  }
+};
+
 export const retrieveProduct = async (
-  productId: string
+  productId: string,
+  params?: Stripe.ProductRetrieveParams
 ): Promise<Stripe.Response<Stripe.Product>> => {
   try {
-    const response = await stripe.products.retrieve(productId);
+    const response = await stripe.products.retrieve(productId, params);
     return response;
   } catch (error) {
     console.error("Error when retrieving product", error);

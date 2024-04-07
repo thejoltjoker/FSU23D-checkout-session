@@ -1,10 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import { get as getUser, upsert as upsertUser } from "../services/user.service";
-import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
+import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import { createCustomer, searchCustomers } from "../services/stripe.service";
+import { get as getUser, upsert as upsertUser } from "../services/user.service";
 
 interface RegisterRequest extends Request {
   body: {
+    name: string;
     email: string;
     password: string;
   };
@@ -16,7 +18,7 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
     const exisitingUser = await getUser(email);
 
     if (exisitingUser) {
@@ -24,7 +26,18 @@ export const register = async (
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-    await upsertUser({ email: email, password: passwordHash });
+    const customerSearchResponse = await searchCustomers(`email:'${email}'`);
+    const existingCustomer = customerSearchResponse.data[0];
+    let customer = existingCustomer;
+    if (!existingCustomer) {
+      customer = await createCustomer({ name: name, email: email });
+    }
+    await upsertUser({
+      name: name,
+      email: email,
+      password: passwordHash,
+      customerId: customer.id,
+    });
     return res.status(StatusCodes.CREATED).json("User created");
   } catch (error) {
     console.error("Failed to retrieve user", error);
@@ -32,8 +45,15 @@ export const register = async (
   }
 };
 
+interface LoginRequest extends Request {
+  body: {
+    email: string;
+    password: string;
+  };
+}
+
 export const login = async (
-  req: Request,
+  req: LoginRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -51,7 +71,9 @@ export const login = async (
         .json("Invalid email or password");
     }
 
-    req.session!.user = existingUser;
+    req.session
+      ? (req.session.user = existingUser)
+      : (req.session = { user: existingUser });
 
     res.status(StatusCodes.OK).json(existingUser.email);
   } catch (error) {

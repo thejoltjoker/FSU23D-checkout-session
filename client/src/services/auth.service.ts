@@ -4,6 +4,7 @@ import { post } from "./http.service";
 export class Endpoint {
   public static baseUrl = "http://localhost:3000/api/";
   public static login: string = `${Endpoint.baseUrl}user/login`;
+  public static register: string = `${Endpoint.baseUrl}user/register`;
 
   constructor() {}
 
@@ -19,6 +20,20 @@ export const login = async (email: string, password: string): Promise<User> => {
     return response.data;
   } catch (error) {
     console.error("Error while logging in");
+    throw error;
+  }
+};
+
+export const register = async (
+  email: string,
+  password: string,
+): Promise<User> => {
+  try {
+    const body = { email: email, password: password };
+    const response = await post<User>(Endpoint.register, JSON.stringify(body));
+    return response.data;
+  } catch (error) {
+    console.error("Error while registering user");
     throw error;
   }
 };

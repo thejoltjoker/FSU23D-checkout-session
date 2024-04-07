@@ -1,4 +1,4 @@
-import { CartItem } from "../models/CartItem";
+import { Product } from "../models/Product";
 
 export enum ShoppingCartActionType {
   ADD,
@@ -7,21 +7,25 @@ export enum ShoppingCartActionType {
 
 export interface ShoppingCartAction {
   type: ShoppingCartActionType;
-  payload: CartItem;
+  payload: Product;
 }
 
+export const initialState = JSON.parse(localStorage.getItem("cart") ?? "[]");
+
 export const shoppingCartReducer = (
-  items: CartItem[],
+  products: Product[],
   action: ShoppingCartAction,
-): CartItem[] => {
+): Product[] => {
+  console.log(action);
   switch (action.type) {
-    case ShoppingCartActionType.ADD:
-      return [...items, action.payload];
-    case ShoppingCartActionType.REMOVE:
-      return [
-        ...items.filter((item) => item.priceId != action.payload.priceId),
-      ];
-    default:
-      return items;
+    case ShoppingCartActionType.ADD: {
+      console.log("Adding product to cart:", action.payload.id);
+      const cart: Product[] = [...products, action.payload];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      return cart;
+    }
+    case ShoppingCartActionType.REMOVE: {
+      return [...products.filter((item) => item.id != action.payload.id)];
+    }
   }
 };

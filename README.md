@@ -5,8 +5,8 @@
 **General Requirements:**
 
 1. **API Development:**
-   - [ ] Create a user registration endpoint in the API.
-   - [ ] Develop a user login endpoint in the API.
+   - [x] Create a user registration endpoint in the API.
+   - [x] Develop a user login endpoint in the API.
    - [ ] Implement endpoints to handle product listing, adding to cart, and placing orders.
    - [ ] Integrate Stripe API for product management and payment processing.
    - [ ] Implement validation endpoint for payment validation.

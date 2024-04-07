@@ -14,7 +14,9 @@ export const getProduct = async (
   next: NextFunction
 ) => {
   try {
-    const products = await retrieveProduct(req.params.productId);
+    const products = await retrieveProduct(req.params.productId, {
+      expand: ["default_price"],
+    });
     res.status(StatusCodes.OK).json(products);
   } catch (error) {
     console.error("Failed to get product", error);
@@ -28,7 +30,7 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const products = await listProducts();
+    const products = await listProducts({ expand: ["data.default_price"] });
     res.status(StatusCodes.OK).json(products);
   } catch (error) {
     console.error("Failed to get products", error);
