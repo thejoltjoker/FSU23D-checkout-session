@@ -1,0 +1,32 @@
+# Retrieve checkout session
+GET http://localhost:3000/api/checkout/session/cs_test_a17GHI2gdNZoPxKB139tdPHuIfVeArmlzW9SL7aVReQ1LUQ5QKFa3ONcbW
+
+###
+# Create checkout session with promotion
+POST http://localhost:3000/api/checkout/session/create
+Content-Type: application/json
+
+{
+  "line_items": [
+    {
+      "price": "price_1P12WfRx5o9wSZXBopnipF0F",
+      "quantity": 2
+    }
+  ],
+  "allow_promotion_codes":true
+}
+
+###
+# Create checkout session with coupon
+POST http://localhost:3000/api/checkout/session/create
+Content-Type: application/json
+
+{
+  "line_items": [
+    {
+      "price": "price_1P12WfRx5o9wSZXBopnipF0F",
+      "quantity": 2
+    }
+  ],
+  "discounts":[{"coupon":"lwV8u0HR"}]
+}

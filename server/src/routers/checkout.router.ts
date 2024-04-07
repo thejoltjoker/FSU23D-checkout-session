@@ -1,9 +1,10 @@
 import express from "express";
-import { createSession } from "../controllers/checkout.controller";
-import authCheck from "../middleware/authCheck";
+import { createSession, getSession } from "../controllers/checkout.controller";
 
 export const router = express.Router();
 
-router.get("/create-checkout-session", authCheck, createSession);
+// TODO add auth check
+router.post("/session/create", createSession);
+router.get("/session/:sessionId", getSession);
 
 export default router;

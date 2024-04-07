@@ -2,12 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import AboutPage from "../pages/AboutPage";
 import AccountPage from "../pages/AccountPage";
+import CancelPage from "../pages/CancelPage";
 import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import PlantsPage from "../pages/PlantsPage";
 import ProductPage from "../pages/ProductPage";
 import RegisterPage from "../pages/RegisterPage";
+import SuccessPage from "../pages/SuccessPage";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: "/plants/:slug",
         element: <ProductPage />,
+      },
+      {
+        path: "/checkout/success",
+        element: <SuccessPage />,
+      },
+      {
+        path: "/checkout/cancel",
+        element: <CancelPage />,
       },
     ],
   },

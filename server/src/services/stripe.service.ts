@@ -62,3 +62,53 @@ export const listProducts = async (
     throw error;
   }
 };
+
+export const listPrices = async (
+  params?: Stripe.PriceListParams
+): Promise<Stripe.Response<Stripe.ApiList<Stripe.Price>>> => {
+  try {
+    const response = await stripe.prices.list(params);
+    return response;
+  } catch (error) {
+    console.error("Error when listing prices", error);
+    throw error;
+  }
+};
+
+export const listCoupons = async (
+  params?: Stripe.CouponListParams
+): Promise<Stripe.Response<Stripe.ApiList<Stripe.Coupon>>> => {
+  try {
+    const response = await stripe.coupons.list(params);
+    return response;
+  } catch (error) {
+    console.error("Error when listing coupons", error);
+    throw error;
+  }
+};
+
+export const createCheckoutSession = async (
+  params: Stripe.Checkout.SessionCreateParams
+): Promise<Stripe.Response<Stripe.Checkout.Session>> => {
+  try {
+    const session = await stripe.checkout.sessions.create(params);
+    console.log(session);
+    return session;
+  } catch (error) {
+    console.error("Error when creating checkout session", error);
+    throw error;
+  }
+};
+
+export const retrieveCheckoutSession = async (
+  sessionId: string
+): Promise<Stripe.Response<Stripe.Checkout.Session>> => {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    console.log(session);
+    return session;
+  } catch (error) {
+    console.error("Error when retrieving checkout session", error);
+    throw error;
+  }
+};

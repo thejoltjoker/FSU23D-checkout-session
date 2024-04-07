@@ -4,3 +4,12 @@ GET http://localhost:3000/api/products/
 ###
 # Get one product
 GET http://localhost:3000/api/products/prod_Pqk0hiP7dP0YOI
+
+###
+# Get prices for a product
+GET http://localhost:3000/api/products/prod_Pqk0hiP7dP0YOI/prices
+
+###
+# TODO Remove before deploy
+# Get all coupons
+GET http://localhost:3000/api/products/coupons
