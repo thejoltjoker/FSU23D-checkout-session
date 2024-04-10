@@ -1,3 +1,4 @@
+import _ from "lodash";
 import CartListingItem from "../components/CartListingItem";
 import CartSummary from "../components/CartSummary";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
@@ -15,9 +16,11 @@ const CartPage = () => {
         <section className="mb-8">
           <h2 className="text-4xl">Your cart</h2>
           <ul className="flex flex-col pt-8">
-            {products.map((product: Product) => (
-              <CartListingItem product={product} key={product.id} />
-            ))}
+            {_.sortBy(_.uniqBy(products, "id"), "name").map(
+              (product: Product) => (
+                <CartListingItem product={product} key={product.id} />
+              ),
+            )}
           </ul>
         </section>
         <section>

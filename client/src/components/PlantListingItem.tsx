@@ -25,14 +25,14 @@ const PlantListingItem = ({ product }: PlantListingItemProps) => {
           {product.default_price.unit_amount / 100}&nbsp;
           {product.default_price.currency.toUpperCase()}
         </p>
-        <Button
-          onPress={() => {
-            handleAddToCart(product);
-          }}
-        >
-          Add to cart
-        </Button>
       </Link>
+      <Button
+        onPress={() => {
+          handleAddToCart(product);
+        }}
+      >
+        Add to cart
+      </Button>
     </div>
   );
 };
