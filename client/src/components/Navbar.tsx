@@ -26,7 +26,7 @@ const Navbar = () => {
         <ul className="ml-auto flex gap-8">
           <li className="text-lg">
             <NavLink to={user ? "/account" : "/login"}>
-              <FaUser />
+              {user ? <FaUser /> : "Log in"}
             </NavLink>
           </li>
           <li className="relative text-xl">

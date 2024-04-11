@@ -1,13 +1,17 @@
 import _ from "lodash";
+import { useState } from "react";
 import CartListingItem from "../components/CartListingItem";
 import CartSummary from "../components/CartSummary";
+import PromotionEntry from "../components/PromotionEntry";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
+import { Coupon } from "../models/Coupon";
 import { Product } from "../models/Product";
 
 // TODO Add items one by one instead of quantity?
-// TODO Send coupon to checkout
+// TODO Validate coupon
 // TODO add checkout functionality
 const CartPage = () => {
+  const [coupon, setCoupon] = useState<Coupon>();
   const { products } = useShoppingCartContext();
 
   return (
@@ -25,13 +29,7 @@ const CartPage = () => {
         </section>
         <section>
           <p className="">Have a discount code?</p>
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="Discount code"
-            className="rounded-full px-3"
-          />
+          <PromotionEntry setCoupon={(value: Coupon) => setCoupon(value)} />
         </section>
         <section>
           <h2 className="text-4xl">Address</h2>
@@ -45,7 +43,7 @@ const CartPage = () => {
         </section>
       </div>
       <div className="w-1/3">
-        <CartSummary />
+        <CartSummary coupon={coupon ?? null} />
       </div>
     </div>
   );

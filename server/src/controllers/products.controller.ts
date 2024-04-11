@@ -8,6 +8,7 @@ interface GetProductRequest extends Request {
     productId: string;
   };
 }
+
 export const getProduct = async (
   req: GetProductRequest,
   res: Response,
@@ -72,6 +73,43 @@ export const getAllCoupons = async (
     res.status(StatusCodes.OK).json(coupons);
   } catch (error) {
     console.error("Failed to get coupons", error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
+  }
+};
+
+interface GetCouponIdFromPromotionRequest extends Request {
+  params: {
+    promotionCode: string;
+  };
+}
+
+export const getCouponIdFromPromotion = async (
+  req: GetCouponIdFromPromotionRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { promotionCode } = req.params;
+
+    const promotionCodes = await stripe.promotionCodes.list({});
+    const matchedPromotion = promotionCodes.data.find(
+      (d) => d.code === promotionCode
+    );
+
+    if (matchedPromotion) {
+      return res.status(StatusCodes.OK).json({
+        id: matchedPromotion.coupon.id,
+        valid: matchedPromotion.coupon.valid,
+        amount_off: matchedPromotion.coupon.amount_off,
+        percent_off: matchedPromotion.coupon.percent_off,
+      });
+    } else {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Promotion code not found" });
+    }
+  } catch (error) {
+    console.error("Failed to get coupon", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
   }
 };

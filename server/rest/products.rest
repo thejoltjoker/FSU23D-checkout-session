@@ -13,3 +13,11 @@ GET http://localhost:3000/api/products/prod_Pqk0hiP7dP0YOI/prices
 # TODO Remove before deploy
 # Get all coupons
 GET http://localhost:3000/api/products/coupons
+
+###
+# Get discount from promo code
+GET http://localhost:3000/api/products/promotions/check/MVGINCOMING
+
+###
+# Get discount from promo code that doesn't exist
+GET http://localhost:3000/api/products/promotions/check/AJABAJA

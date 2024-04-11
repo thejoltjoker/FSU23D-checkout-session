@@ -12,7 +12,8 @@ const SuccessPage = () => {
     if (session) return;
     const fetchSession = async () => {
       const response = await axios.get(
-        `http://localhost:3000/api/checkout/session/${sessionId}`,
+        `http://localhost:3000/api/checkout/session/${encodeURIComponent(sessionId)}`,
+        { withCredentials: true },
       );
       if (response.status === 200) {
         const data = response.data;

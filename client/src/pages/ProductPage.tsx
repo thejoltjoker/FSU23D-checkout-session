@@ -2,11 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "../components/Button";
+import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Product } from "../models/Product";
+import { ShoppingCartActionType } from "../reducers/shoppingCartReducer";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<Product>();
   const { productId } = useParams();
+  const { dispatch } = useShoppingCartContext();
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch({ type: ShoppingCartActionType.ADD, payload: product });
+    }
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -58,7 +67,9 @@ const ProductPage = () => {
                 +
               </button>
             </div>
-            <Button className="grow">Add to cart</Button>
+            <Button className="grow" onPress={handleAddToCart}>
+              Add to cart
+            </Button>
           </div>
         </div>
       </div>
