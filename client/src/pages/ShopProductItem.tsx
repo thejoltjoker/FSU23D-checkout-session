@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "../components/Button";
+import NumberField from "../components/NumberField";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Product } from "../models/Product";
 import { ShoppingCartActionType } from "../reducers/shoppingCartReducer";
@@ -12,7 +13,10 @@ const ShopProductItem = ({ product }: ShopProductItemProps) => {
 
   const handleAddToCart = () => {
     if (product) {
-      dispatch({ type: ShoppingCartActionType.ADD, payload: product });
+      dispatch({
+        type: ShoppingCartActionType.ADD,
+        payload: { product: product, quantity: quantity },
+      });
     }
   };
 
@@ -64,6 +68,7 @@ const ShopProductItem = ({ product }: ShopProductItemProps) => {
                 +
               </RACButton>
             </div> */}
+            <NumberField minValue={1} value={quantity} onChange={setQuantity} />
             <Button className="max-w-48 grow" onPress={handleAddToCart}>
               Add to cart
             </Button>

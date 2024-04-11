@@ -25,11 +25,12 @@ export const login = async (email: string, password: string): Promise<User> => {
 };
 
 export const register = async (
+  name: string,
   email: string,
   password: string,
 ): Promise<User> => {
   try {
-    const body = { email: email, password: password };
+    const body = { name: name, email: email, password: password };
     const response = await post<User>(Endpoint.register, JSON.stringify(body));
     return response.data;
   } catch (error) {

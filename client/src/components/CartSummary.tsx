@@ -13,11 +13,11 @@ type CartSummaryProps = {
   coupon: Coupon | null;
 };
 const CartSummary = ({ coupon }: CartSummaryProps) => {
-  const { products } = useShoppingCartContext();
+  const { items } = useShoppingCartContext();
   const { user } = useUserContext();
   const navigate = useNavigate();
   const currencySymbol = getSymbolFromCurrency(
-    (products.length > 0 && products[0].default_price.currency) || "€",
+    (items.length > 0 && items[0].product.default_price.currency) || "€",
   );
 
   type LineItem = {
@@ -31,15 +31,19 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
   };
 
   const handleCheckout = async () => {
-    const priceQuantity = _.countBy(products, "default_price.id");
-
     try {
       const body: CreateSessionBody = {
-        line_items: Object.keys(priceQuantity).map((id) => {
-          return { price: id, quantity: priceQuantity[id] };
+        line_items: items.map((item) => {
+          return {
+            price: item.product.default_price.id,
+            quantity: item.quantity,
+          };
         }),
-        discounts: [{ coupon: coupon?.id ?? "" }],
       };
+      if (coupon) {
+        body.discounts = [{ coupon: coupon?.id ?? "" }];
+      }
+      console.log(body);
 
       const response = await axios.post<Session>(
         "http://localhost:3000/api/checkout/session/create",
@@ -67,13 +71,35 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
         <p>Subtotal</p>
         <p className="text-right">
           {currencySymbol}{" "}
-          {_.round(_.sumBy(products, "default_price.unit_amount") / 100, 2)}
+          {_.round(
+            _.reduce(
+              items,
+              (sum, item) => {
+                return (
+                  sum + item.product.default_price.unit_amount * item.quantity
+                );
+              },
+              0,
+            ) / 100,
+            2,
+          )}
         </p>
         <hr className="col-span-full border-dawn-300" />
         <p className="font-bold">Total</p>
         <p className="text-right font-bold">
           {currencySymbol}{" "}
-          {_.round(_.sumBy(products, "default_price.unit_amount") / 100, 2)}
+          {_.round(
+            _.reduce(
+              items,
+              (sum, item) => {
+                return (
+                  sum + item.product.default_price.unit_amount * item.quantity
+                );
+              },
+              0,
+            ) / 100,
+            2,
+          )}
         </p>
         {user ? (
           <Button className="col-span-full mt-8" onPress={handleCheckout}>

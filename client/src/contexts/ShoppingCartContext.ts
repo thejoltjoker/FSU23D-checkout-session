@@ -1,14 +1,15 @@
 import { Dispatch, createContext, useContext } from "react";
-import { Product } from "../models/ProductsResponse";
+
+import { CartItem } from "../models/CartItem";
 import { ShoppingCartAction } from "../reducers/shoppingCartReducer";
 
 type ShoppingCartContent = {
-  products: Product[];
+  items: CartItem[];
   dispatch: Dispatch<ShoppingCartAction>;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContent>({
-  products: [],
+  items: [],
   dispatch: () => {},
 });
 

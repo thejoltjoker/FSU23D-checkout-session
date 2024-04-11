@@ -12,7 +12,7 @@ import { router } from "./routers/MainRouter";
 
 const App = () => {
   const [user, setUser] = useState<User>();
-  const [products, dispatch] = useReducer(shoppingCartReducer, initialState);
+  const [items, dispatch] = useReducer(shoppingCartReducer, initialState);
 
   useEffect(() => {
     let ignore = false;
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
-        <ShoppingCartContext.Provider value={{ products, dispatch }}>
+        <ShoppingCartContext.Provider value={{ items, dispatch }}>
           <RouterProvider router={router} />
         </ShoppingCartContext.Provider>
       </UserContext.Provider>

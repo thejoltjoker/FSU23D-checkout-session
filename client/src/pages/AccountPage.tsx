@@ -1,8 +1,10 @@
-import { Button } from "../components/Button";
+import LogoutButton from "../components/LogoutButton";
 import { useUserContext } from "../contexts/UserContext";
-
+// TODO update design
+// TODO fix sign out button
 const AccountPage = () => {
   const { user } = useUserContext();
+
   return (
     <div className="-mt-navbar flex h-screen">
       <div className="h-screen w-1/2 bg-fern-200">
@@ -16,7 +18,7 @@ const AccountPage = () => {
         <div className="mx-auto max-w-md">
           <h2 className="mb-4 text-center text-6xl">Account</h2>
           <p>Email: {user?.email}</p>
-          <Button>Sign out</Button>
+          <LogoutButton />
         </div>
       </div>
     </div>

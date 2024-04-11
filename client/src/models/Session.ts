@@ -19,7 +19,7 @@ export interface Session {
   custom_text: CustomText;
   customer: null;
   customer_creation: string;
-  customer_details: null;
+  customer_details: CustomerDetails;
   customer_email: null;
   expires_at: number;
   invoice: null;
@@ -28,7 +28,7 @@ export interface Session {
   locale: null;
   metadata: Metadata;
   mode: string;
-  payment_intent: null;
+  payment_intent: string;
   payment_link: null;
   payment_method_collection: string;
   payment_method_configuration_details: null;
@@ -48,7 +48,7 @@ export interface Session {
   success_url: string;
   total_details: TotalDetails;
   ui_mode: string;
-  url: string;
+  url: null;
 }
 
 export interface AutomaticTax {
@@ -62,6 +62,24 @@ export interface CustomText {
   shipping_address: null;
   submit: null;
   terms_of_service_acceptance: null;
+}
+
+export interface CustomerDetails {
+  address: Address;
+  email: string;
+  name: string;
+  phone: null;
+  tax_exempt: string;
+  tax_ids: any[];
+}
+
+export interface Address {
+  city: null;
+  country: string;
+  line1: null;
+  line2: null;
+  postal_code: null;
+  state: null;
 }
 
 export interface InvoiceCreation {

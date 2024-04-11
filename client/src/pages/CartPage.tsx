@@ -4,42 +4,37 @@ import CartListingItem from "../components/CartListingItem";
 import CartSummary from "../components/CartSummary";
 import PromotionEntry from "../components/PromotionEntry";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
+import { CartItem } from "../models/CartItem";
 import { Coupon } from "../models/Coupon";
-import { Product } from "../models/Product";
 
 // TODO Add items one by one instead of quantity?
 
 const CartPage = () => {
   const [coupon, setCoupon] = useState<Coupon>();
-  const { products } = useShoppingCartContext();
+  const { items } = useShoppingCartContext();
 
   return (
     <div className="mx-auto flex h-screen max-w-screen-xl gap-4 py-24 pt-navbar">
-      <div className="w-2/3">
+      <div className="flex w-2/3 flex-col gap-4">
         <section className="mb-8">
           <h2 className="text-brown-950 pb-4 text-4xl">Your cart</h2>
           <ul className="flex flex-col gap-4">
-            {_.sortBy(_.uniqBy(products, "id"), "name").map(
-              (product: Product) => (
-                <CartListingItem product={product} key={product.id} />
+            {_.sortBy(_.uniqBy(items, "product.id"), "name").map(
+              (item: CartItem) => (
+                <CartListingItem product={item.product} key={item.product.id} />
               ),
             )}
           </ul>
         </section>
-        <section>
-          <p className="">Have a discount code?</p>
+        <section className="bg-banana-50 rounded-3xl p-8">
+          <h4 className="text-2xl">Discount</h4>
+          <p className="text-brown-950/60 pb-4">Have a discount code?</p>
           <PromotionEntry setCoupon={(value: Coupon) => setCoupon(value)} />
         </section>
-        <section>
-          <h2 className="text-4xl">Address</h2>
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="Postkod"
-            className="rounded-full px-3"
-          />
-        </section>
+        {/* TODO add shipping with postnord api */}
+        {/* <section>
+          <CheckoutShipping />
+        </section> */}
       </div>
       <div className="w-1/3">
         <CartSummary coupon={coupon ?? null} />

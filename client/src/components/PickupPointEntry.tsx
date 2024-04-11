@@ -3,13 +3,13 @@ import { useState } from "react";
 
 import { Coupon } from "../models/Coupon";
 import { Button } from "./Button";
-import TextField from "./TextField";
+import PostalCodeInput from "./PostalCodeInput";
 
 type Props = {
-  setCoupon: (coupon: Coupon) => void;
+  setPickupPoint: (coupon: Coupon) => void;
 };
 
-const PromotionEntry = ({ setCoupon }: Props) => {
+const PickupPointEntry = ({ setPickupPoint: setCoupon }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -20,7 +20,7 @@ const PromotionEntry = ({ setCoupon }: Props) => {
       setIsLoading(true);
 
       const response = await axios.get<Coupon>(
-        `http://localhost:3000/api/products/promotions/check/${encodeURIComponent(inputValue)}`,
+        `http://localhost:3000/api/delivery/service-points/${encodeURIComponent(inputValue)}`,
         { withCredentials: true },
       );
       if (response.status === 200 && response.data.id) {
@@ -38,11 +38,9 @@ const PromotionEntry = ({ setCoupon }: Props) => {
 
   return (
     <div className="flex w-full flex-wrap gap-2">
-      <TextField
-        value={inputValue}
-        onChange={(e) => setInputValue(e)}
-        isDisabled={isValid}
-        className={"grow"}
+      <PostalCodeInput
+        postalCode={inputValue}
+        setPostalCode={(value) => setInputValue(value)}
       />
       {isValid ? null : (
         <Button onPress={() => handleApplyCode()} isDisabled={isLoading}>
@@ -54,4 +52,4 @@ const PromotionEntry = ({ setCoupon }: Props) => {
   );
 };
 
-export default PromotionEntry;
+export default PickupPointEntry;
