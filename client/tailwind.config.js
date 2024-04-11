@@ -8,14 +8,65 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        box: "0 6px 20px 0 rgba(69, 25, 3, 0.15)",
+      },
+      borderRadius: {
+        "4xl": "3rem",
+      },
       fontFamily: {
-        sans: ['"Libre Franklin"', ...defaultTheme.fontFamily.sans],
-        serif: ['"DM Serif Display"', ...defaultTheme.fontFamily.serif],
+        heading: [
+          '"Kanit"',
+          '"Nunito"',
+          '"Noto Color Emoji"',
+          ...defaultTheme.fontFamily.sans,
+        ],
+        sans: [
+          '"Nunito"',
+          '"Noto Color Emoji"',
+          ...defaultTheme.fontFamily.sans,
+        ],
+        emoji: [
+          '"Noto Emoji"',
+          '"Noto Color Emoji"',
+          ...defaultTheme.fontFamily.sans,
+        ],
+        "emoji-color": [
+          '"Noto Color Emoji"',
+          '"Noto Emoji"',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       spacing: {
         navbar: "4rem",
       },
       colors: {
+        brown: {
+          50: "#fffbeb",
+          100: "#fef2c7",
+          200: "#fde48a",
+          300: "#fcd04d",
+          400: "#fbbc24",
+          500: "#f59a0b",
+          600: "#d97406",
+          700: "#b45009",
+          800: "#923e0e",
+          900: "#78330f",
+          950: "#451903",
+        },
+        banana: {
+          50: "#fffdeb",
+          100: "#fffac6",
+          200: "#fef589",
+          300: "#feea4b",
+          400: "#fedb21",
+          500: "#f8be10",
+          600: "#db9104",
+          700: "#b66807",
+          800: "#94510c",
+          900: "#79420e",
+          950: "#462202",
+        },
         zanah: {
           50: "#f1f7ee",
           100: "#dcead4",

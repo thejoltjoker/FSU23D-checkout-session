@@ -5,7 +5,5 @@ export interface Product extends Stripe.Product {
 }
 
 export interface Metadata extends Stripe.Metadata {
-  slug: string;
-  scientificName: string;
-  tags: string;
+  order: string;
 }

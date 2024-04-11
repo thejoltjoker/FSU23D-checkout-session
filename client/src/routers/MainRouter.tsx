@@ -4,11 +4,10 @@ import AboutPage from "../pages/AboutPage";
 import AccountPage from "../pages/AccountPage";
 import CancelPage from "../pages/CancelPage";
 import CartPage from "../pages/CartPage";
-import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
-import PlantsPage from "../pages/PlantsPage";
 import ProductPage from "../pages/ProductPage";
 import RegisterPage from "../pages/RegisterPage";
+import { default as ShopPage } from "../pages/ShopPage";
 import SuccessPage from "../pages/SuccessPage";
 
 export const router = createBrowserRouter([
@@ -19,7 +18,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         index: true,
-        element: <HomePage />,
+        element: <ShopPage />,
       },
       {
         path: "/login",
@@ -40,10 +39,6 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
-      },
-      {
-        path: "/plants",
-        element: <PlantsPage />,
       },
       {
         path: "/plants/:productId",

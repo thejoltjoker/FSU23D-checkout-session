@@ -24,7 +24,5 @@ export interface Product {
 }
 
 export interface ProductMetadata {
-  scientificName: string;
-  slug: string;
-  tags: string;
+  order: string;
 }

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 
-import PlantListingItem from "../components/PlantListingItem";
-
 import { Product } from "../models/Product";
 import { getAllProducts } from "../services/products.service";
+import ShopProductItem from "./ShopProductItem";
 
 const ShopPage = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -13,9 +12,13 @@ const ShopPage = () => {
     if (products) return;
     const fetchProducts = async () => {
       try {
-        // TODO also get all prices
         const response = await getAllProducts();
-        if (!ignore) setProducts(response.data);
+        if (!ignore)
+          setProducts(
+            response.data
+              .filter((product) => product.active)
+              .sort((a, b) => (a.metadata.order > b.metadata.order ? 1 : -1)),
+          );
       } catch (error) {
         console.error("Error while getting products");
       }
@@ -28,15 +31,13 @@ const ShopPage = () => {
 
   return (
     <>
-      <div className="from-zanah-500 mx-auto w-full max-w-screen-xl rounded rounded-3xl bg-gradient-to-br to-fern-800 p-8 text-white">
-        <h1 className="py-40 ps-32 text-6xl">Our Products</h1>
-      </div>
-      <div className="mx-auto flex w-full max-w-screen-xl py-8">
-        <div className="flex w-full flex-wrap gap-8">
+      <div className="mx-auto flex w-full max-w-screen-xl flex-wrap py-8">
+        <h2 className="text-brown-950 w-full py-40 text-center text-6xl">
+          Our Products
+        </h2>
+        <div className="flex w-full flex-wrap gap-12">
           {products?.map((product) => (
-            <div className="shrink grow basis-1/3">
-              <PlantListingItem product={product} key={product.id} />
-            </div>
+            <ShopProductItem product={product} key={product.id} />
           ))}
           {/* <div className="flex grow basis-1/2 border">
             <img

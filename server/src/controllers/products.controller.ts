@@ -33,7 +33,7 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const params = { expand: ["data.default_price"] };
+    const params = { expand: ["data.default_price"], active: true };
     const products = await stripe.products.list(params);
     res.status(StatusCodes.OK).json(products);
   } catch (error) {

@@ -56,8 +56,8 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
   };
   return (
     <section>
-      <h2 className="pb-8 text-4xl">Summary</h2>
-      <div className="grid grid-cols-2 gap-2 text-lg">
+      <h2 className="text-brown-950 pb-4 text-4xl">Summary</h2>
+      <div className="bg-banana-50 shadow-box grid grid-cols-2 gap-2 rounded-3xl p-8 text-lg">
         <p>Discount code</p>
         <p className="text-right">{coupon ? coupon.id : "None"}</p>
         <p>Shipping</p>

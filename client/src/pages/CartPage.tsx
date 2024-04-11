@@ -8,18 +8,17 @@ import { Coupon } from "../models/Coupon";
 import { Product } from "../models/Product";
 
 // TODO Add items one by one instead of quantity?
-// TODO Validate coupon
-// TODO add checkout functionality
+
 const CartPage = () => {
   const [coupon, setCoupon] = useState<Coupon>();
   const { products } = useShoppingCartContext();
 
   return (
-    <div className="mx-auto flex h-screen max-w-screen-xl gap-16 py-24 pt-navbar">
+    <div className="mx-auto flex h-screen max-w-screen-xl gap-4 py-24 pt-navbar">
       <div className="w-2/3">
         <section className="mb-8">
-          <h2 className="text-4xl">Your cart</h2>
-          <ul className="flex flex-col pt-8">
+          <h2 className="text-brown-950 pb-4 text-4xl">Your cart</h2>
+          <ul className="flex flex-col gap-4">
             {_.sortBy(_.uniqBy(products, "id"), "name").map(
               (product: Product) => (
                 <CartListingItem product={product} key={product.id} />

@@ -18,11 +18,12 @@ const CartListingItem = ({ product }: CartListingItemProps) => {
     dispatch({ type: ShoppingCartActionType.REMOVEONE, payload: product });
   };
   return (
-    <li className="flex w-full items-center border-b border-dawn-300 py-4">
-      <img src={product.images[0]} alt="" className="me-4 max-w-24" />
-      <div className="grow self-start">
+    <li className="bg-banana-50 flex w-full items-center rounded-3xl p-4">
+      <div className="bg-brown-950/10 border-brown-950/20 me-4 size-24 rounded-xl border border-2">
+        <img src={product.images[0]} alt="" className="w-full" />
+      </div>
+      <div className="grow">
         <h4 className="text-2xl">{product.name}</h4>
-        <p className="text-dawn-500">{product.metadata.scientificName}</p>
       </div>
       <div className="me-8 inline-flex items-center">
         <Button

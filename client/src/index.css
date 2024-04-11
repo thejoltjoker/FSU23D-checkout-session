@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @layer base {
   html {
-    @apply bg-dawn-100;
+    @apply bg-banana-500;
   }
   h1,
   h2,
@@ -12,12 +11,19 @@
   h4,
   h5,
   h6 {
-    @apply font-serif;
+    @apply font-heading font-extrabold uppercase;
   }
 }
 
 @layer components {
   .react-aria-Button {
     @apply h-12 rounded-full bg-fern-500 px-3 font-bold text-white;
+  }
+
+  .noto-emoji-test {
+    font-family: "Noto Emoji", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 700;
+    font-style: normal;
   }
 }
