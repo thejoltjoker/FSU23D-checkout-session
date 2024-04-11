@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import {
-  get as getUser,
-  remove as removeUser,
-  upsert as upsertUser,
-} from "../services/user.service";
+import { get as getUser } from "../services/user.service";
 import { StatusCodes } from "http-status-codes";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -16,40 +12,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     res.status(StatusCodes.OK).json(user);
   } catch (error) {
     console.error("Failed to retrieve user", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
-  }
-};
-
-// export const update = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const user = await upsertUser({
-//       email: req.body.email,
-//       password: req.body.password,
-//     });
-//     if (!user) {
-//       return res.status(StatusCodes.NOT_FOUND).json("Couldn't find user");
-//     }
-//     res.status(StatusCodes.OK).json(user);
-//   } catch (err) {
-//     console.error(`Error while updating user`, err);
-//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
-//   }
-// };
-
-export const remove = async (
-  req: Request<{ userId: string }, {}, {}, {}>,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    await removeUser(req.params.userId);
-    res.status(204).json({});
-  } catch (err) {
-    console.error(`Error while deleting user`, err);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
   }
 };

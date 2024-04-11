@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import Stripe from "stripe";
 import { stripe } from "../services/stripe.service";
+import { ServerError } from "../models/ServerError";
 
 interface CreateSessionRequest extends Request {
   body: Stripe.Checkout.SessionCreateParams;
@@ -24,11 +25,13 @@ export const createSession = async (
       ...req.body,
     };
     const session = await stripe.checkout.sessions.create(params);
-    console.log(session);
     res.status(StatusCodes.OK).json(session);
   } catch (error) {
-    console.error("Failed to create checkout session", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
+    console.error(error);
+    throw new ServerError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed to create checkout session"
+    );
   }
 };
 
@@ -43,7 +46,9 @@ export const getSession = async (
 ) => {
   try {
     const { sessionId } = req.params;
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["customer"],
+    });
     res.status(StatusCodes.OK).json(session);
   } catch (error) {
     console.error("Failed to create checkout session", error);

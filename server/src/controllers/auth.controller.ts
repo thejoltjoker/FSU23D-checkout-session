@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { stripe } from "../services/stripe.service";
 import { get as getUser, upsert as upsertUser } from "../services/user.service";
+import { ServerError } from "../models/ServerError";
+import { User } from "../schemas/UserSchema";
 
 interface RegisterRequest extends Request {
   body: {
@@ -44,8 +46,10 @@ export const register = async (
       .status(StatusCodes.CREATED)
       .json({ name: name, email: email, customerId: customer.id });
   } catch (error) {
-    console.error("Failed to retrieve user", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
+    throw new ServerError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed to retrieve user"
+    );
   }
 };
 
@@ -75,9 +79,20 @@ export const login = async (
         .json("Invalid email or password");
     }
 
+    // TODO Clean this up a bit
     req.session
-      ? (req.session.user = existingUser)
-      : (req.session = { user: existingUser });
+      ? (req.session.user = {
+          name: existingUser.name,
+          email: existingUser.email,
+          customerId: existingUser.customerId,
+        })
+      : (req.session = {
+          user: {
+            name: existingUser.name,
+            email: existingUser.email,
+            customerId: existingUser.customerId,
+          },
+        });
 
     res.status(StatusCodes.OK).json({
       name: existingUser.name,
@@ -85,8 +100,10 @@ export const login = async (
       customerId: existingUser.customerId,
     });
   } catch (error) {
-    console.error("Failed to login user", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong");
+    throw new ServerError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed to login user"
+    );
   }
 };
 
@@ -123,7 +140,9 @@ export const authorize = async (
       });
     }
   } catch (error) {
-    console.error("Failed to authorize user", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong");
+    throw new ServerError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed when trying to authorize user"
+    );
   }
 };

@@ -1,10 +1,11 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import cookieSession from "cookie-session";
 import router from "./routers";
 import { StatusCodes } from "http-status-codes";
 import helmet from "helmet";
+import { ServerError } from "./models/ServerError";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
@@ -21,10 +22,19 @@ app.use(
 
 app.use("/api", router);
 
-app.use((req, res) => {
-  res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send({ message: "Something went wrong" });
+app.use("/error", (req: Request, res: Response) => {
+  throw new ServerError(500, "Something went wrong");
+});
+
+app.use((err: ServerError, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+
+  res.status(err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+    error: {
+      message: err.message || "Something went wrong",
+      statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+    },
+  });
 });
 
 app.listen(port, () => {

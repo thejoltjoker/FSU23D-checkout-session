@@ -1,2 +1,0 @@
-# Get service points from postal code
-GET http://localhost:3000/api/delivery/service-points/45330

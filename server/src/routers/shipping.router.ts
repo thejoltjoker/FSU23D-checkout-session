@@ -1,5 +1,5 @@
 import express from "express";
-import { getServicePoints } from "../controllers/delivery.controller";
+import { getServicePoints } from "../controllers/shipping.controller";
 
 export const router = express.Router();
 

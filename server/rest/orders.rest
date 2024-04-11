@@ -1,0 +1,15 @@
+# Save order
+POST http://localhost:3000/api/orders/save
+Content-Type: application/json
+
+{
+  "id": "test-order",
+  "date": "2024-04-11T21:02:11.558Z",
+  "customerId": "cus_PuDsBrk3Eimc7V",
+  "totalAmount": 12300,
+  "servicePointId": "2412412"
+}
+
+###
+# Get orders by customerId
+GET http://localhost:3000/api/orders/cus_PuDsBrk3Eimc7V

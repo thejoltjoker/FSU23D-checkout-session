@@ -1,5 +1,5 @@
 # Retrieve checkout session
-GET http://localhost:3000/api/checkout/session/cs_test_a17GHI2gdNZoPxKB139tdPHuIfVeArmlzW9SL7aVReQ1LUQ5QKFa3ONcbW
+GET http://localhost:3000/api/checkout/session/cs_test_b1GnSP2lxLVaK0w53eDc56mJ1w8UkFSzwmLsdc5xw3Br9P5jJEi47ThgWY
 
 ###
 # Create checkout session with promotion
@@ -9,7 +9,7 @@ Content-Type: application/json
 {
   "line_items": [
     {
-      "price": "price_1P12WfRx5o9wSZXBopnipF0F",
+      "price": "price_1P4LvDRx5o9wSZXBr8uODDSC",
       "quantity": 2
     }
   ],
@@ -24,7 +24,7 @@ Content-Type: application/json
 {
   "line_items": [
     {
-      "price": "price_1P12WfRx5o9wSZXBopnipF0F",
+      "price": "price_1P4LvDRx5o9wSZXBr8uODDSC",
       "quantity": 2
     }
   ],
