@@ -7,8 +7,8 @@ export interface ServicePoint {
   locationDetail: null;
   routeDistance: null;
   pickup: Pickup;
-  visitingAddress: Address;
-  deliveryAddress: Address;
+  visitingAddress: ServicePointAddress;
+  deliveryAddress: ServicePointAddress;
   notificationArea: NotificationArea;
   coordinates: Coordinate[];
   openingHours: OpeningHours;
@@ -22,7 +22,7 @@ export interface Coordinate {
   srId: string;
 }
 
-export interface Address {
+export interface ServicePointAddress {
   countryCode: string;
   city: string;
   streetName: string;

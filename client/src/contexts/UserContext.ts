@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, createContext, useContext } from "react";
-import { User } from "../models/User";
+import { User } from "../schemas/UserSchema";
 
 export type UserContent = {
   user: User | undefined;

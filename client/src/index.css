@@ -1,6 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.react-aria-RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-color);
+}
+
+.react-aria-Radio {
+  display: flex;
+  align-items: center;
+  gap: 0.571rem;
+  font-size: 1.143rem;
+  color: blue;
+  forced-color-adjust: none;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 1.286rem;
+    height: 1.286rem;
+    box-sizing: border-box;
+    border: 0.143rem solid green;
+    background: yellow;
+    border-radius: 1.286rem;
+    transition: all 200ms;
+  }
+
+  &[data-pressed]:before {
+    border-color: red;
+  }
+
+  &[data-selected] {
+    &:before {
+      border-color: cyan;
+      border-width: 0.429rem;
+    }
+
+    &[data-pressed]:before {
+      border-color: magenta;
+    }
+  }
+
+  &[data-focus-visible]:before {
+    outline: 2px solid salmon;
+    outline-offset: 2px;
+  }
+}
 @layer base {
   html {
     @apply bg-banana-500;

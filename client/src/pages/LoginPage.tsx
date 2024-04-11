@@ -17,7 +17,7 @@ const LoginPage = () => {
     setIsLoading(true);
     const response = await login(email, password);
     if (response) {
-      setUser(new User(email));
+      setUser(response);
       setIsLoading(false);
     }
   };
@@ -27,7 +27,7 @@ const LoginPage = () => {
   }, [user, navigate]);
   return (
     <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
-      <div className="bg-banana-50 rounded-4xl shadow-box max-w-md p-8">
+      <div className="max-w-md rounded-4xl bg-banana-50 p-8 shadow-box">
         <h2 className="mb-8 text-center text-5xl">Login</h2>
 
         <form

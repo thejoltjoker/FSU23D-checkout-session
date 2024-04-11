@@ -8,11 +8,14 @@ import { useUserContext } from "../contexts/UserContext";
 import { Coupon } from "../models/Coupon";
 import { Session } from "../models/Session";
 import { Button } from "./Button";
+import { ServicePoint } from "../models/ServicePoint";
+import { Address } from "../schemas/AddressSchema";
 
 type CartSummaryProps = {
   coupon: Coupon | null;
+  servicePoint: ServicePoint | undefined;
 };
-const CartSummary = ({ coupon }: CartSummaryProps) => {
+const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
   const { items } = useShoppingCartContext();
   const { user } = useUserContext();
   const navigate = useNavigate();
@@ -29,8 +32,22 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
     coupon: string;
   };
 
+  type PaymentIntentData = {
+    shipping: ShippingDetails;
+  };
+  type ShippingDetails = {
+    address: Address;
+    name: string;
+    carrier: string;
+  };
+  type SessionMetadata = {
+    servicePointId: string | undefined;
+  };
+
   type CreateSessionBody = {
     customer: string;
+    metadata: SessionMetadata;
+    payment_intent_data: PaymentIntentData;
     line_items: LineItem[];
     discounts: Discounts[];
   };
@@ -44,6 +61,24 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
             quantity: item.quantity,
           };
         }),
+        metadata: { servicePointId: servicePoint?.servicePointId },
+        payment_intent_data: {
+          shipping: {
+            carrier: "PostNord",
+            name: user?.name ?? "",
+            address: {
+              city: servicePoint?.deliveryAddress.city ?? null,
+              country: servicePoint?.deliveryAddress.countryCode ?? null,
+              line1:
+                `${servicePoint?.deliveryAddress.streetName} ${servicePoint?.deliveryAddress.streetNumber}` ||
+                null,
+              line2: servicePoint?.deliveryAddress.countryCode ?? null,
+              state: null,
+              postal_code: servicePoint?.deliveryAddress.postalCode ?? null,
+            },
+          },
+        },
+
         customer: user?.customerId ?? "",
         discounts: [],
       };
@@ -67,10 +102,12 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
   };
   return (
     <section>
-      <h2 className="text-brown-950 pb-4 text-4xl">Summary</h2>
-      <div className="bg-banana-50 shadow-box grid grid-cols-2 gap-2 rounded-3xl p-8 text-lg">
+      <h2 className="pb-4 text-4xl text-brown-950">Summary</h2>
+      <div className="grid grid-cols-2 gap-2 rounded-3xl bg-banana-50 p-8 text-lg shadow-box">
         <p>Discount code</p>
         <p className="text-right">{coupon ? coupon.id : "None"}</p>
+        <p>Delivers to</p>
+        <p className="text-right">{servicePoint?.name}</p>
         <p>Shipping</p>
         <p className="text-right">Free</p>
         <p>Tax</p>

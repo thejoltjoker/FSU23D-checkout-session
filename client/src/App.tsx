@@ -3,12 +3,13 @@ import { useEffect, useReducer, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import { ShoppingCartContext } from "./contexts/ShoppingCartContext";
 import { UserContext } from "./contexts/UserContext";
-import { User } from "./models/User";
+
 import {
   initialState,
   shoppingCartReducer,
 } from "./reducers/shoppingCartReducer";
 import { router } from "./routers/MainRouter";
+import { User } from "./schemas/UserSchema";
 
 const App = () => {
   const [user, setUser] = useState<User>();

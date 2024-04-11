@@ -8,6 +8,12 @@ export default {
   ],
   theme: {
     extend: {
+      borderWidth: {
+        1.5: "1.5px",
+        5: "5px",
+        6: "6px",
+        7: "7px",
+      },
       boxShadow: {
         box: "0 6px 20px 0 rgba(69, 25, 3, 0.15)",
       },

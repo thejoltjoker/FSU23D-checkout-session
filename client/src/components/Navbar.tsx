@@ -7,7 +7,7 @@ const Navbar = () => {
   const { user } = useUserContext();
   const { items } = useShoppingCartContext();
   return (
-    <div className="text-brown-950 relative z-50 h-navbar w-full">
+    <div className="relative z-50 h-navbar w-full px-8 text-brown-950">
       <nav className="mx-auto flex h-navbar w-full max-w-screen-xl items-center">
         <h3 className="me-12">
           <NavLink to={"/"}>
@@ -29,7 +29,7 @@ const Navbar = () => {
           </li>
           <li className="relative">
             <NavLink to={"/cart"} className="">
-              <div className="bg-brown-200 border-brown-950 text-brown-950 absolute -right-1.5 -top-0.5 z-10 flex aspect-square size-6 items-center justify-center rounded-full border-[1.5px] text-sm font-bold">
+              <div className="absolute -right-1.5 -top-0.5 z-10 flex aspect-square size-6 items-center justify-center rounded-full border-[1.5px] border-brown-950 bg-brown-200 text-sm font-bold text-brown-950">
                 {_.sumBy(items, "quantity")}
               </div>
               {/* <FaCartShopping /> */}

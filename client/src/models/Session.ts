@@ -17,7 +17,7 @@ export interface Session {
   currency_conversion: null;
   custom_fields: any[];
   custom_text: CustomText;
-  customer: null;
+  customer: null | Customer;
   customer_creation: string;
   customer_details: CustomerDetails;
   customer_email: null;
@@ -26,7 +26,7 @@ export interface Session {
   invoice_creation: InvoiceCreation;
   livemode: boolean;
   locale: null;
-  metadata: Metadata;
+  metadata: SessionMetadata;
   mode: string;
   payment_intent: string;
   payment_link: null;
@@ -93,11 +93,13 @@ export interface InvoiceData {
   description: null;
   footer: null;
   issuer: null;
-  metadata: Metadata;
+  metadata: unknown;
   rendering_options: null;
 }
 
-export interface Metadata {}
+export interface SessionMetadata {
+  servicePointId?: string;
+}
 
 export interface PaymentMethodOptions {
   card: Card;
@@ -116,3 +118,36 @@ export interface TotalDetails {
   amount_shipping: number;
   amount_tax: number;
 }
+
+export interface Customer {
+  id: string;
+  object: string;
+  address: null;
+  balance: number;
+  created: number;
+  currency: null;
+  default_source: null;
+  delinquent: boolean;
+  description: null;
+  discount: null;
+  email: string;
+  invoice_prefix: string;
+  invoice_settings: InvoiceSettings;
+  livemode: boolean;
+  metadata: CustomerMetadata;
+  name: string;
+  phone: null;
+  preferred_locales: any[];
+  shipping: null;
+  tax_exempt: string;
+  test_clock: null;
+}
+
+export interface InvoiceSettings {
+  custom_fields: null;
+  default_payment_method: null;
+  footer: null;
+  rendering_options: null;
+}
+
+export interface CustomerMetadata {}

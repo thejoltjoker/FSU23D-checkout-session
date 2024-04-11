@@ -4,12 +4,14 @@ import { useSearchParams } from "react-router-dom";
 import SuccessSummary from "../components/SuccessSummary";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Session } from "../models/Session";
+import { saveOrder } from "../services/orders.service";
+import { Order } from "../schemas/OrderSchema";
+import { v4 as uuidv4 } from "uuid";
 // TODO add order to json file if successful
-// TODO clear cart
+
 const SuccessPage = () => {
   const [session, setSession] = useState<Session>();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { dispatch } = useShoppingCartContext();
+  const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("sessionId");
   useEffect(() => {
     let ignore = false;
@@ -23,12 +25,21 @@ const SuccessPage = () => {
       if (response.status === 200) {
         const data = response.data;
         console.log(data);
+
+        if (data.payment_status === "paid") {
+          const order: Order = {
+            id: data.id,
+            date: new Date(),
+            customerId: data.customer?.id ?? data.customer_details.email,
+            totalAmount: data.amount_total,
+            servicePointId: data.metadata.servicePointId ?? "",
+          };
+          await saveOrder(order);
+          localStorage.clear();
+        }
+
         if (!ignore) {
           setSession(data);
-        }
-        if (response.data.status) {
-          // TODO save order to json
-          localStorage.clear();
         }
       }
     };
