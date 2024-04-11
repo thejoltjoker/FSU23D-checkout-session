@@ -40,7 +40,9 @@ export const register = async (
       password: passwordHash,
       customerId: customer.id,
     });
-    return res.status(StatusCodes.CREATED).json("User created");
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ name: name, email: email, customerId: customer.id });
   } catch (error) {
     console.error("Failed to retrieve user", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong");
@@ -77,7 +79,11 @@ export const login = async (
       ? (req.session.user = existingUser)
       : (req.session = { user: existingUser });
 
-    res.status(StatusCodes.OK).json(existingUser.email);
+    res.status(StatusCodes.OK).json({
+      name: existingUser.name,
+      email: existingUser.email,
+      customerId: existingUser.customerId,
+    });
   } catch (error) {
     console.error("Failed to login user", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong");
@@ -108,8 +114,14 @@ export const authorize = async (
     if (!req.session?.user) {
       return res.status(StatusCodes.UNAUTHORIZED).json("User not logged in");
     }
-
-    res.status(StatusCodes.OK).json(req.session?.user.email);
+    const user = await getUser(req.session.user.email);
+    if (user) {
+      res.status(StatusCodes.OK).json({
+        name: user.name,
+        email: user.email,
+        customerId: user.customerId,
+      });
+    }
   } catch (error) {
     console.error("Failed to authorize user", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong");

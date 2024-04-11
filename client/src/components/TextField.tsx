@@ -25,7 +25,7 @@ const TextField = ({
   return (
     <RACTextField {...props}>
       <Label>{label}</Label>
-      <Input />
+      <Input className="border-brown-950/40 disabled:border-brown-950/20 disabled:text-brown-950/20 focus:border-banana-500 focus:ring-banana-500 h-12 rounded-full border-[1.5px] px-4" />
       {description && <Text slot="description">{description}</Text>}
       <FieldError>{errorMessage}</FieldError>
     </RACTextField>

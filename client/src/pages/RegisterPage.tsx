@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
-import { User } from "../models/User";
 import { register } from "../services/auth.service";
 
 // TODO add validation
@@ -19,7 +18,7 @@ const RegisterPage = () => {
     setIsLoading(true);
     const response = await register(name, email, password);
     if (response) {
-      setUser(new User(email));
+      setUser(response);
       setIsLoading(false);
     }
   };

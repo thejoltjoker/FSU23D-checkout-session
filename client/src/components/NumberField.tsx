@@ -27,14 +27,14 @@ function NumberField({
       <Group className="flex">
         <Button
           slot="decrement"
-          className="flex h-12 w-12 items-center justify-center rounded-l-full border border-dawn-300 text-xl"
+          className="border-brown-950/40 text-brown-950/60 flex h-12 w-12 items-center justify-center rounded-l-full border-[1.5px] text-xl font-bold"
         >
           -
         </Button>
-        <Input className="h-12 w-12 border-x-0 border-y border-dawn-300 text-center text-xl" />
+        <Input className="focus:border-banana-500 focus:ring-banana-500 border-brown-950/40 h-12 w-12 border-x-0 border-y-[1.5px] text-center text-xl" />
         <Button
           slot="increment"
-          className="flex h-12 w-12 items-center justify-center rounded-r-full border border-dawn-300 text-xl"
+          className="border-brown-950/40 text-brown-950/60 flex h-12 w-12 items-center justify-center rounded-r-full border-[1.5px] text-xl font-bold"
         >
           +
         </Button>
@@ -46,27 +46,3 @@ function NumberField({
 }
 
 export default NumberField;
-
-{
-  /* <div className="flex">
-              <RACButton
-                className="flex h-12 w-12 items-center justify-center rounded-l-full border border-dawn-300 text-xl"
-                onPress={(e) =>
-                  setQuantity(quantity - 1 < 0 ? 0 : quantity - 1)
-                }
-              >
-                <span>-</span>
-              </RACButton>
-              <input
-                type="text"
-                value={quantity}
-                className="h-12 w-12 border-x-0 border-y border-dawn-300 text-center text-xl"
-              />
-              <RACButton
-                className="flex h-12 w-12 items-center justify-center rounded-r-full border border-dawn-300 text-xl"
-                onPress={(e) => setQuantity(quantity + 1)}
-              >
-                +
-              </RACButton>
-            </div> */
-}

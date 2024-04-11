@@ -18,14 +18,14 @@ const App = () => {
     let ignore = false;
     if (user) return;
     const authorize = async () => {
-      const response = await axios.get(
+      const response = await axios.get<User>(
         "http://localhost:3000/api/user/authorize",
         { withCredentials: true },
       );
 
       console.log(response);
       if (response.status === 200) {
-        setUser(new User(response.data));
+        setUser(response.data);
       }
     };
     if (!ignore) authorize();

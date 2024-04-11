@@ -25,9 +25,14 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
     quantity: number;
   };
 
+  type Discounts = {
+    coupon: string;
+  };
+
   type CreateSessionBody = {
+    customer: string;
     line_items: LineItem[];
-    discounts: [{ coupon: string }];
+    discounts: Discounts[];
   };
 
   const handleCheckout = async () => {
@@ -39,9 +44,11 @@ const CartSummary = ({ coupon }: CartSummaryProps) => {
             quantity: item.quantity,
           };
         }),
+        customer: user?.customerId ?? "",
+        discounts: [],
       };
       if (coupon) {
-        body.discounts = [{ coupon: coupon?.id ?? "" }];
+        body.discounts = [{ coupon: coupon.id }];
       }
       console.log(body);
 

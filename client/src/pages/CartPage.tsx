@@ -14,7 +14,7 @@ const CartPage = () => {
   const { items } = useShoppingCartContext();
 
   return (
-    <div className="mx-auto flex h-screen max-w-screen-xl gap-4 py-24 pt-navbar">
+    <div className="mx-auto flex h-screen max-w-screen-xl gap-8 py-24 pt-navbar">
       <div className="flex w-2/3 flex-col gap-4">
         <section className="mb-8">
           <h2 className="text-brown-950 pb-4 text-4xl">Your cart</h2>
@@ -26,7 +26,7 @@ const CartPage = () => {
             )}
           </ul>
         </section>
-        <section className="bg-banana-50 rounded-3xl p-8">
+        <section className="bg-banana-50 shadow-box rounded-3xl p-8">
           <h4 className="text-2xl">Discount</h4>
           <p className="text-brown-950/60 pb-4">Have a discount code?</p>
           <PromotionEntry setCoupon={(value: Coupon) => setCoupon(value)} />
