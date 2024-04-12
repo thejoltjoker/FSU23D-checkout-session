@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import express from "express";
 import { StatusCodes } from "http-status-codes";
+import { ServerError } from "../models/ServerError";
 import { servicePointsFromPostalCode } from "../services/postnord.service";
 import { tryCatch } from "../utils/tryCatch";
-import * as core from "express-serve-static-core";
-import { ServerError } from "../models/ServerError";
 
 interface GetServicePointsRequest extends Request {
   params: {

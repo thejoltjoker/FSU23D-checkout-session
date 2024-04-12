@@ -1,10 +1,9 @@
-import express, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import Stripe from "stripe";
-import { stripe } from "../services/stripe.service";
 import { ServerError } from "../models/ServerError";
+import { stripe } from "../services/stripe.service";
 import { tryCatch } from "../utils/tryCatch";
-import { ParamsDictionary } from "express-serve-static-core";
 
 interface CreateSessionRequest extends Request {
   body: Stripe.Checkout.SessionCreateParams;
