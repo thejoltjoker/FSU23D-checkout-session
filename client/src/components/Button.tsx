@@ -12,14 +12,14 @@ export interface ButtonProps extends RACButtonProps {
 
 const button = tv({
   extend: focusRing,
-  base: "px-5 h-12 text-center transition rounded-lg cursor-default font-heading text-lg",
+  base: "px-5 h-12 text-center transition rounded-lg cursor-default font-heading text-lg cursor-pointer",
   variants: {
     variant: {
       primary:
-        "rounded-full bg-banana-500 px-3 font-bold text-brown-800 hover:bg-banana-600",
+        "rounded-full bg-banana-500 font-bold text-brown-800 hover:bg-banana-600 px-5",
     },
     isDisabled: {
-      true: "bg-gray-100 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 forced-colors:text-[GrayText] border-black/5 dark:border-white/5",
+      true: "bg-brown-950/40 text-banana-50/80 hover:bg-brown-950/45 cursor-auto",
     },
   },
   defaultVariants: {

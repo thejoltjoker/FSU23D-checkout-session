@@ -1,4 +1,3 @@
-// TODO Disallow checkout without signing in first
 import getSymbolFromCurrency from "currency-symbol-map";
 import _ from "lodash";
 
@@ -9,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { Session } from "../models/Session";
 import { Button } from "./Button";
 
-type SuccessSummaryProps = {
+type CancelSummaryProps = {
   session: Session;
 };
-const SuccessSummary = ({ session }: SuccessSummaryProps) => {
+const CancelSummary = ({ session }: CancelSummaryProps) => {
   const { user } = useUserContext();
   const navigate = useNavigate();
 
@@ -22,6 +21,10 @@ const SuccessSummary = ({ session }: SuccessSummaryProps) => {
     <section>
       <h2 className="pb-4 text-center text-4xl text-brown-950">Summary</h2>
       <div className="grid grid-cols-2 gap-2 rounded-3xl bg-banana-50 p-8 text-lg shadow-box">
+        <p className="col-span-full w-full text-center font-bold">
+          Order cancelled
+        </p>
+
         <p>Status</p>
         <p className="flex items-center justify-end">
           {session?.payment_status === "paid" ? (
@@ -34,8 +37,6 @@ const SuccessSummary = ({ session }: SuccessSummaryProps) => {
             </span>
           )}
         </p>
-        {/* <p>Discount code</p>
-        <p className="text-right">{session ? session.id : "None"}</p> */}
         <p>Shipping</p>
         <p className="text-right">Free</p>
         <p>Tax</p>
@@ -64,4 +65,4 @@ const SuccessSummary = ({ session }: SuccessSummaryProps) => {
   );
 };
 
-export default SuccessSummary;
+export default CancelSummary;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-
+import Loading from "../components/Loading";
+import ShopProductList from "../components/ShopProductList";
 import { Product } from "../models/Product";
 import { getAllProducts } from "../services/products.service";
-import ShopProductItem from "./ShopProductItem";
 
 const ShopPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,37 +37,17 @@ const ShopPage = () => {
 
   return (
     <>
-      <div className="mx-auto flex w-full max-w-screen-xl flex-wrap py-8">
-        <h2 className="text-brown-950 w-full pb-32 pt-16 text-center text-6xl">
-          Our Products
-        </h2>
-        {isLoading && (
-          <h6 className="text-brown-950 mx-auto animate-pulse text-center text-4xl">
-            <span className="font-emoji-color">🍌</span> <br /> Loading
-          </h6>
-        )}
-        <div className="flex w-full flex-wrap gap-12">
-          {products?.map((product) => (
-            <ShopProductItem product={product} key={product.id} />
-          ))}
-          {/* <div className="flex grow basis-1/2 border">
-            <img
-              src="/img/fishhook-barrel-cactus.jpg"
-              alt=""
-              className="mb-4 w-1/2 rounded-3xl"
-            />
-            <div className="w-1/2">
-              <p>Prickly pear</p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Repellat, beatae? Magni non sapiente porro consequatur, natus
-                dolore dolores doloremque sint amet, facere, id sed quae illum
-                saepe laborum ullam voluptatem!
-              </p>
-            </div>
-          </div> */}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="mx-auto flex w-full max-w-screen-xl flex-wrap py-8">
+          <h2 className="w-full pb-24 pt-8 text-center text-4xl text-brown-950 md:text-6xl">
+            Our Products
+          </h2>
+
+          <ShopProductList products={products ?? []} />
         </div>
-      </div>
+      )}
     </>
   );
 };

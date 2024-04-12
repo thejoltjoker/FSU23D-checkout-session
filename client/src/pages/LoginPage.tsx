@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
-import { User } from "../models/User";
 import { login } from "../services/auth.service";
 
 const LoginPage = () => {
@@ -27,11 +26,11 @@ const LoginPage = () => {
   }, [user, navigate]);
   return (
     <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
-      <div className="max-w-md rounded-4xl bg-banana-50 p-8 shadow-box">
-        <h2 className="mb-8 text-center text-5xl">Login</h2>
+      <div className="w-full max-w-md rounded-4xl bg-banana-50 p-8 shadow-box md:p-12">
+        <h2 className="mb-8 text-center text-3xl md:text-4xl">Login</h2>
 
         <form
-          className="flex flex-col gap-4 px-12 text-center"
+          className="flex flex-col gap-4 px-2 text-center"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
@@ -68,7 +67,7 @@ const LoginPage = () => {
             </a>
             .
           </p>
-          <Button type="submit" isDisabled={isLoading}>
+          <Button type="submit" isDisabled={isLoading} className="mx-auto w-40">
             {isLoading ? "Logging in" : "Log in"}
           </Button>
         </form>

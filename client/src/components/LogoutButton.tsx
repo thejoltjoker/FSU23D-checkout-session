@@ -22,7 +22,11 @@ const LogoutButton = () => {
       console.error("Error when logging out user");
     }
   };
-  return <Button onPress={handleClick}>Log out</Button>;
+  return (
+    <Button onPress={handleClick} className="w-full">
+      Log out
+    </Button>
+  );
 };
 
 export default LogoutButton;

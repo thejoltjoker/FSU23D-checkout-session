@@ -1,13 +1,15 @@
-import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <main className="px-8">
+      <main className="h-full min-h-[calc(100vh-14rem)] px-4 py-8 md:px-8">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 };

@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+// TODO show order details
+import { useEffect, useState } from "react";
 import UserSummary from "../components/UserSummary";
 import { useUserContext } from "../contexts/UserContext";
 
-import { Order } from "../schemas/OrderSchema";
 import axios from "axios";
-// TODO update design
-// TODO fix sign out button
+import AccountOrderListItem from "../components/AccountOrderListItem";
+import { Order } from "../schemas/OrderSchema";
+
 const AccountPage = () => {
   const { user } = useUserContext();
 
@@ -30,16 +31,16 @@ const AccountPage = () => {
   });
 
   return (
-    <div className="mx-auto flex h-screen max-w-screen-xl gap-8 py-24 pt-navbar">
-      <div className="flex w-2/3 flex-col gap-4">
+    <div className="mx-auto flex max-w-screen-xl flex-col gap-8 py-24 pt-navbar md:flex-row">
+      <div className="flex basis-2/3 flex-col gap-4">
         <section className="mb-8">
-          <h2 className="pb-4 text-4xl text-brown-950">Your cart</h2>
+          <h2 className="pb-4 text-4xl text-brown-950">Order history</h2>
           <ul className="flex flex-col gap-4">
-            {orders?.map((order) => <li>{order.id}</li>)}
+            {orders?.map((order) => <AccountOrderListItem order={order} />)}
           </ul>
         </section>
       </div>
-      <div className="w-1/3">
+      <div className="shrink grow basis-1/3">
         <UserSummary />
       </div>
     </div>

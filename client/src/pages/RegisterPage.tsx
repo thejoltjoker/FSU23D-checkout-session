@@ -28,11 +28,13 @@ const RegisterPage = () => {
   }, [user, navigate]);
   return (
     <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
-      <div className="bg-banana-50 rounded-4xl shadow-box max-w-md p-8">
-        <h2 className="mb-8 text-center text-5xl">Create account</h2>
+      <div className="w-full max-w-md rounded-4xl bg-banana-50 p-8 shadow-box md:p-12">
+        <h2 className="mb-8 text-center text-3xl md:text-4xl">
+          Create account
+        </h2>
 
         <form
-          className="flex flex-col gap-4 px-12 text-center"
+          className="flex flex-col gap-4 px-2 text-center"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
@@ -81,13 +83,13 @@ const RegisterPage = () => {
             </a>
             .
           </p>
-          <Button type="submit" isDisabled={isLoading}>
+          <Button type="submit" isDisabled={isLoading} className="mx-auto w-52">
             {isLoading ? "Creating account..." : "Create account"}
           </Button>
         </form>
         <p className="w-full pt-8 text-center">
           Already a customer?{" "}
-          <Link to="/register" className="text-brown-800">
+          <Link to="/login" className="text-brown-800">
             Log in
           </Link>
         </p>

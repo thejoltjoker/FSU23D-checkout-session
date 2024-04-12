@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 
+import { Form } from "react-aria-components";
 import { ServicePoint } from "../models/ServicePoint";
-import TextField from "./TextField";
-import { useUserContext } from "../contexts/UserContext";
 import { Button } from "./Button";
 import ServicePointSelection from "./ServicePointSelection";
-import { RadioGroup, Radio, Label, Input } from "react-aria-components";
+import TextField from "./TextField";
 
 type Props = {
   servicePoint: ServicePoint | undefined;
@@ -20,7 +19,7 @@ const CheckoutShipping = ({ servicePoint, setServicePoint }: Props) => {
   const [servicePoints, setServicePoints] = useState<ServicePoint[]>();
   const [postalCode, setPostalCode] = useState<string>("");
 
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     try {
       setIsLoading(true);
 
@@ -44,54 +43,31 @@ const CheckoutShipping = ({ servicePoint, setServicePoint }: Props) => {
     <div className="rounded-3xl bg-banana-50 p-8">
       <h4 className="text-2xl">Shipping</h4>
       <p className="pb-4 text-brown-950/60">
-        Enter your postal code to find a pickup point.
+        Enter your postal code to find the nearest service point.
       </p>
       <div className="flex w-full flex-wrap gap-2">
-        {/* TODO Save entire address to user */}
-        {/* <div className="flex flex-wrap gap-2">
+        <Form
+          className="flex w-full flex-row gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
           <TextField
-            label="Name"
-            value={user && user.name}
-            onChange={(value) => user && setUser({ ...user, name: value })}
-            className="flex shrink grow basis-2/5 flex-col"
-          />
-          <TextField
-            label="Phone"
-            value={(user && user.phone) ?? ""}
-            onChange={(value) => user && setUser({ ...user, phone: value })}
-            className="flex shrink grow basis-2/5 flex-col"
-          />
-          <TextField
-            label="Street"
-            value={(user && user.address?.line1) ?? ""}
-            onChange={(value) => user && setUser({ ...user, name: value })}
-            className="flex w-full shrink grow flex-col"
-          />
-
-          <TextField
-            label="Postal code"
-            value={(user && user.address?.line1) ?? ""}
+            value={postalCode}
             onChange={(e) => setPostalCode(e)}
-            className="flex shrink grow basis-2/5 flex-col"
+            placeholder="12345"
+            className={"shrink grow"}
           />
-          <TextField
-            label="City"
-            value={(user && user.address?.line1) ?? ""}
-            onChange={(e) => setPostalCode(e)}
-            className="flex shrink grow basis-2/5 flex-col"
-          />
-        </div> */}
 
-        <TextField
-          value={postalCode}
-          onChange={(e) => setPostalCode(e)}
-          placeholder="12345"
-        />
-
-        <Button onPress={() => handleClick()} isDisabled={isLoading}>
-          Apply
-        </Button>
-
+          <Button
+            type="submit"
+            isDisabled={isLoading}
+            className="min-w-24 shrink grow"
+          >
+            Search
+          </Button>
+        </Form>
         {isError && <p className="w-full">Something went wrong</p>}
       </div>
 

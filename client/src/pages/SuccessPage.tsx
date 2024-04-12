@@ -2,11 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import SuccessSummary from "../components/SuccessSummary";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Session } from "../models/Session";
-import { saveOrder } from "../services/orders.service";
 import { Order } from "../schemas/OrderSchema";
-import { v4 as uuidv4 } from "uuid";
+import { saveOrder } from "../services/orders.service";
 // TODO add order to json file if successful
 
 const SuccessPage = () => {
@@ -31,6 +29,7 @@ const SuccessPage = () => {
             id: data.id,
             date: new Date(),
             customerId: data.customer?.id ?? data.customer_details.email,
+            email: data.customer_details.email,
             totalAmount: data.amount_total,
             servicePointId: data.metadata.servicePointId ?? "",
           };

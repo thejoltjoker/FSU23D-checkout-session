@@ -3,18 +3,27 @@ import axios from "axios";
 import getSymbolFromCurrency from "currency-symbol-map";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
+import Stripe from "stripe";
 import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { useUserContext } from "../contexts/UserContext";
 import { Coupon } from "../models/Coupon";
+import { ServicePoint } from "../models/ServicePoint";
 import { Session } from "../models/Session";
 import { Button } from "./Button";
-import { ServicePoint } from "../models/ServicePoint";
-import { Address } from "../schemas/AddressSchema";
+
+interface CartSessionMetadata extends Stripe.MetadataParam {
+  servicePointId: string | null;
+}
+
+interface CartSessionCreateParams extends Stripe.Checkout.SessionCreateParams {
+  metadata: CartSessionMetadata;
+}
 
 type CartSummaryProps = {
   coupon: Coupon | null;
   servicePoint: ServicePoint | undefined;
 };
+
 const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
   const { items } = useShoppingCartContext();
   const { user } = useUserContext();
@@ -23,62 +32,29 @@ const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
     (items.length > 0 && items[0].product.default_price.currency) || "€",
   );
 
-  type LineItem = {
-    price: string;
-    quantity: number;
-  };
-
-  type Discounts = {
-    coupon: string;
-  };
-
-  type PaymentIntentData = {
-    shipping: ShippingDetails;
-  };
-  type ShippingDetails = {
-    address: Address;
-    name: string;
-    carrier: string;
-  };
-  type SessionMetadata = {
-    servicePointId: string | undefined;
-  };
-
-  type CreateSessionBody = {
-    customer: string;
-    metadata: SessionMetadata;
-    payment_intent_data: PaymentIntentData;
-    line_items: LineItem[];
-    discounts: Discounts[];
-  };
-
   const handleCheckout = async () => {
     try {
-      const body: CreateSessionBody = {
+      const body: CartSessionCreateParams = {
         line_items: items.map((item) => {
           return {
             price: item.product.default_price.id,
             quantity: item.quantity,
           };
         }),
-        metadata: { servicePointId: servicePoint?.servicePointId },
+        metadata: { servicePointId: servicePoint?.servicePointId ?? null },
         payment_intent_data: {
           shipping: {
             carrier: "PostNord",
             name: user?.name ?? "",
             address: {
-              city: servicePoint?.deliveryAddress.city ?? null,
-              country: servicePoint?.deliveryAddress.countryCode ?? null,
-              line1:
-                `${servicePoint?.deliveryAddress.streetName} ${servicePoint?.deliveryAddress.streetNumber}` ||
-                null,
-              line2: servicePoint?.deliveryAddress.countryCode ?? null,
-              state: null,
-              postal_code: servicePoint?.deliveryAddress.postalCode ?? null,
+              city: servicePoint?.deliveryAddress.city,
+              country: servicePoint?.deliveryAddress.countryCode,
+              line1: `${servicePoint?.deliveryAddress.streetName} ${servicePoint?.deliveryAddress.streetNumber}`,
+              line2: servicePoint?.deliveryAddress.countryCode,
+              postal_code: servicePoint?.deliveryAddress.postalCode,
             },
           },
         },
-
         customer: user?.customerId ?? "",
         discounts: [],
       };
@@ -92,7 +68,7 @@ const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
         body,
         { withCredentials: true },
       );
-      window.location.replace(response.data.url);
+      response.data.url && window.location.replace(response.data.url);
     } catch (error) {
       console.error(error);
     }
@@ -104,15 +80,19 @@ const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
     <section>
       <h2 className="pb-4 text-4xl text-brown-950">Summary</h2>
       <div className="grid grid-cols-2 gap-2 rounded-3xl bg-banana-50 p-8 text-lg shadow-box">
-        <p>Discount code</p>
+        <p className="font-heading font-bold uppercase">Discount code</p>
         <p className="text-right">{coupon ? coupon.id : "None"}</p>
-        <p>Delivers to</p>
-        <p className="text-right">{servicePoint?.name}</p>
-        <p>Shipping</p>
+        <p className="font-heading font-bold uppercase">Delivers to</p>
+        <p className="text-right">
+          {servicePoint?.name ?? (
+            <span className="text-brown-600 underline">Not set</span>
+          )}
+        </p>
+        <p className="font-heading font-bold uppercase">Shipping</p>
         <p className="text-right">Free</p>
-        <p>Tax</p>
+        <p className="font-heading font-bold uppercase">Tax</p>
         <p className="text-right">{currencySymbol} 0</p>
-        <p>Subtotal</p>
+        <p className="font-heading font-bold uppercase">Subtotal</p>
         <p className="text-right">
           {currencySymbol}{" "}
           {_.round(
@@ -129,7 +109,7 @@ const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
           )}
         </p>
         <hr className="col-span-full border-dawn-300" />
-        <p className="font-bold">Total</p>
+        <p className="font-heading font-bold uppercase">Total</p>
         <p className="text-right font-bold">
           {currencySymbol}{" "}
           {_.round(
@@ -146,7 +126,11 @@ const CartSummary = ({ coupon, servicePoint }: CartSummaryProps) => {
           )}
         </p>
         {user ? (
-          <Button className="col-span-full mt-8" onPress={handleCheckout}>
+          <Button
+            className="col-span-full mt-8"
+            onPress={handleCheckout}
+            isDisabled={!servicePoint || items.length === 0}
+          >
             Checkout
           </Button>
         ) : (
