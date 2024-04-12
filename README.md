@@ -29,7 +29,7 @@
 1. Clone the repository from [GitHub](https://github.com/thejoltjoker/FSU23D-checkout-session).
 2. Navigate to the project directory.
 3. Follow instructions to set up [client](./client/README.md) and [server](./server/README.md).
-4. Run `npm run dev` in the `server` directory.
+4. Run `npm run start` in the `server` directory.
 5. Open a new terminal and run `npm run dev` in the `client` directory.
 6. Navigate to <http://localhost:5173> in your favorite browser to use the app.
 
