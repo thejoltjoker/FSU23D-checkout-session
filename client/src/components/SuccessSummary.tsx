@@ -1,9 +1,5 @@
-// TODO Disallow checkout without signing in first
 import getSymbolFromCurrency from "currency-symbol-map";
 import _ from "lodash";
-
-import { useUserContext } from "../contexts/UserContext";
-
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { Session } from "../models/Session";
@@ -13,7 +9,6 @@ type SuccessSummaryProps = {
   session: Session;
 };
 const SuccessSummary = ({ session }: SuccessSummaryProps) => {
-  const { user } = useUserContext();
   const navigate = useNavigate();
 
   const currencySymbol = getSymbolFromCurrency(session.currency || "$");

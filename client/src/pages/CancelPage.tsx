@@ -13,7 +13,7 @@ const CancelPage = () => {
     if (session) return;
     const fetchSession = async () => {
       const response = await axios.get<Session>(
-        `http://localhost:3000/api/checkout/session/${encodeURIComponent(sessionId)}`,
+        `http://localhost:3000/api/checkout/session/${encodeURIComponent(sessionId ?? "")}`,
         { withCredentials: true },
       );
 

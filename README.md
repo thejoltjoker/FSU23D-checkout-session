@@ -20,3 +20,16 @@ VG
 - [x] Det skall gå att ange en rabattkod för att få rabatt på sitt köp (Detta görs genom Stripe)
 - [ ] Man skall som inloggad kunna se sina lagda ordrar.
 - [ ] Innan man betalar behöver användaren fylla i sin adress och utifrån adressen välja ett utlämningsställe där paketet skall hämtas (PostNord API).
+
+
+
+
+
+
+
+
+
+
+
+Promotion code
+BANANZA

@@ -1,4 +1,4 @@
-import { User } from "../models/User";
+import { User } from "../schemas/UserSchema";
 import { post } from "./http.service";
 
 export class Endpoint {

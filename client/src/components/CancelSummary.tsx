@@ -1,8 +1,5 @@
 import getSymbolFromCurrency from "currency-symbol-map";
 import _ from "lodash";
-
-import { useUserContext } from "../contexts/UserContext";
-
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { Session } from "../models/Session";
@@ -12,7 +9,6 @@ type CancelSummaryProps = {
   session: Session;
 };
 const CancelSummary = ({ session }: CancelSummaryProps) => {
-  const { user } = useUserContext();
   const navigate = useNavigate();
 
   const currencySymbol = getSymbolFromCurrency(session.currency || "$");

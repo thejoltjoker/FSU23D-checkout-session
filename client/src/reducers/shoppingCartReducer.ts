@@ -10,7 +10,7 @@ export enum ShoppingCartActionType {
 
 export interface ShoppingCartAction {
   type: ShoppingCartActionType;
-  payload: CartItem;
+  payload?: CartItem;
 }
 
 export const initialState = JSON.parse(localStorage.getItem("cart") ?? "[]");
@@ -21,12 +21,15 @@ export const shoppingCartReducer = (
 ): CartItem[] => {
   switch (action.type) {
     case ShoppingCartActionType.ADD: {
+      if (!action.payload) return items;
       console.log("Adding product to cart:", action.payload.product.id);
       let cart: CartItem[];
 
-      if (items.find((item) => item.product.id === action.payload.product.id)) {
+      if (
+        items.find((item) => item.product.id === action.payload?.product.id)
+      ) {
         cart = items.map((item) =>
-          item.product.id === action.payload.product.id
+          item.product.id === action.payload?.product.id
             ? { ...item, quantity: item.quantity + action.payload.quantity }
             : { ...item },
         );
@@ -38,12 +41,15 @@ export const shoppingCartReducer = (
     }
 
     case ShoppingCartActionType.SET: {
+      if (!action.payload) return items;
       console.log("Setting product in cart:", action.payload.product.id);
       let cart: CartItem[];
 
-      if (items.find((item) => item.product.id === action.payload.product.id)) {
+      if (
+        items.find((item) => item.product.id === action.payload?.product.id)
+      ) {
         cart = items.map((item) =>
-          item.product.id === action.payload.product.id
+          item.product.id === action.payload?.product.id
             ? { ...action.payload }
             : { ...item },
         );
@@ -55,12 +61,13 @@ export const shoppingCartReducer = (
     }
 
     case ShoppingCartActionType.REMOVEONE: {
-      console.log("Removing item from cart:", action.payload.id);
+      if (!action.payload) return items;
+      console.log("Removing item from cart:", action.payload.product.id);
 
       let removed = false;
       const cart: CartItem[] = [];
       items.map((item) =>
-        item.product.id === action.payload.product.id && !removed
+        item.product.id === action.payload?.product.id && !removed
           ? (removed = true)
           : cart.push(item),
       );
@@ -70,12 +77,21 @@ export const shoppingCartReducer = (
     }
 
     case ShoppingCartActionType.REMOVEALL: {
+      if (!action.payload) return items;
       return [
-        ...items.filter((item) => item.product.id != action.payload.product.id),
+        ...items.filter(
+          (item) => item.product.id != action.payload?.product.id,
+        ),
       ];
     }
+
     case ShoppingCartActionType.EMPTY: {
+      localStorage.removeItem("cart");
       return [];
+    }
+
+    default: {
+      return items;
     }
   }
 };

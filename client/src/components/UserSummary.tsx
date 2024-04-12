@@ -1,13 +1,8 @@
-// TODO Disallow checkout without signing in first
-import { useNavigate } from "react-router-dom";
-
 import { useUserContext } from "../contexts/UserContext";
 import LogoutButton from "./LogoutButton";
 
-type UserSummaryProps = {};
-const UserSummary = (props: UserSummaryProps) => {
+const UserSummary = () => {
   const { user } = useUserContext();
-  const navigate = useNavigate();
 
   return (
     <section>

@@ -48,6 +48,7 @@ const ShopPage = () => {
           <ShopProductList products={products ?? []} />
         </div>
       )}
+      {isError && "An error occured..."}
     </>
   );
 };
