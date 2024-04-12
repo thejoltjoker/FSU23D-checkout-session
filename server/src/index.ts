@@ -1,13 +1,18 @@
-import express, { NextFunction, Request, Response } from "express";
+import cookieSession from "cookie-session";
 import cors from "cors";
 import "dotenv/config";
-import cookieSession from "cookie-session";
-import router from "./routers";
+import express from "express";
 import helmet from "helmet";
 import { errorHandler } from "./middleware/errorHandler";
+import router from "./routers";
+import { initOrdersJson } from "./services/order.service";
+import { initUsersJson } from "./services/user.service";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
+
+initUsersJson();
+initOrdersJson();
 
 app.use(helmet());
 app.use(express.json());

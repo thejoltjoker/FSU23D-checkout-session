@@ -7,7 +7,8 @@ const Footer = () => {
     <footer className="h-40 w-full bg-stone-900 text-banana-50">
       <div className="mx-auto flex w-full max-w-screen-xl justify-between px-4 py-8">
         <h6 className="">King Kong's</h6>
-        <ul className="font-heading font-bold uppercase text-banana-400">
+        <ul className="flex gap-4 font-heading font-bold uppercase text-banana-400">
+          <li>{!user && <NavLink to={"/register"}>Sign up</NavLink>}</li>
           <li>
             {user ? (
               <NavLink to={"/account"}>Account</NavLink>

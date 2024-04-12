@@ -45,18 +45,18 @@ const ShopProductItem = ({ product }: ShopProductItemProps) => {
           <h4 className="text-center font-heading text-3xl text-brown-950/60 md:text-left md:text-4xl">
             Banana
           </h4>
-          <div className="flex items-end justify-between pt-4 text-xl text-dawn-900">
+          <div className="flex items-end justify-between pt-4 text-xl text-dawn-900 md:flex-col md:items-start md:pb-4">
             <p className="text-2xl md:text-3xl">
-              <span className="text-base text-fern-500">$</span>{" "}
+              <span className="text-base text-fern-500 md:text-lg">$</span>{" "}
               {product && product?.default_price.unit_amount / 100}
             </p>
             <p className="text-brown-950/60">Free Shipping</p>
           </div>
-          <div className="pb-4">
+          <div className="pb-4 md:pb-5">
             <h4 className="text-2xl text-brown-950">Description</h4>
             <p className="text-dawn-700">{product?.description}</p>
           </div>
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap items-center gap-6">
             <NumberField
               minValue={1}
               value={quantity}

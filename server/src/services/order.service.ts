@@ -1,12 +1,16 @@
 import { OrdersJson } from "../models/OrdersJson";
 import { Order } from "../schemas/OrderSchema";
-import { User } from "../schemas/UserSchema";
 import { read, write } from "./json.service";
 
 import path from "path";
 const orderJsonPath = path.resolve(__dirname, "../data/orders.json");
 const defaultData: OrdersJson = {
   orders: [],
+};
+
+export const initOrdersJson = async () => {
+  const data = (await read<OrdersJson>(orderJsonPath)) ?? defaultData;
+  return await write(orderJsonPath, data);
 };
 
 export const findByEmail = async (email: string): Promise<Order[]> => {
