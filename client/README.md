@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# React Frontend for King Kong's Banana Kingdom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that interfaces with an Express server for user authentication, api integration and performing purchases. This project showcases the integration of React with a backend server to create a basic web application for a banana web shop.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+Before you start, ensure you have the following:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js and npm installed
 
-- Configure the top-level `parserOptions` property like this:
+### Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clone the repository:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+   ```bash
+   git clone https://github.com/thejoltjoker/FSU23D-checkout-session.git
+   cd FSU23D-checkout-session/client
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server with the following command:
+
+   ```bash
+   npm run dev
+   ```
+
+Visit `http://localhost:5173/` in your browser to access the React client.
+
+## API Integration
+
+The React client communicates with the Express server through the defined API endpoints. Ensure the Express server is running and accessible at <http://localhost:3000>
