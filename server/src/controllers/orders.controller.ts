@@ -8,31 +8,30 @@ import {
 } from "../services/order.service";
 import { Order } from "../schemas/OrderSchema";
 import { ServerError } from "../models/ServerError";
+import { tryCatch } from "../utils/tryCatch";
 
 interface SaveOrderRequest extends Request {
   body: Order;
 }
 
-export const saveOrder = async (
-  req: SaveOrderRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const order: Order = req.body;
-    order.id = Md5.hashStr(
-      `${order.id}${order.customerId}${order.totalAmount}`
-    );
-    await upsertOrder(order);
-    return res.status(StatusCodes.CREATED).json(order);
-  } catch (error) {
-    console.log(error);
-    throw new ServerError(
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      "Failed to save order"
-    );
+export const saveOrder = tryCatch(
+  async (req: SaveOrderRequest, res: Response, next: NextFunction) => {
+    try {
+      const order: Order = req.body;
+      order.id = Md5.hashStr(
+        `${order.id}${order.customerId}${order.totalAmount}`
+      );
+      await upsertOrder(order);
+      return res.status(StatusCodes.CREATED).json(order);
+    } catch (error) {
+      console.log(error);
+      throw new ServerError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        "Failed to save order"
+      );
+    }
   }
-};
+);
 
 interface Session extends CookieSessionInterfaces.CookieSessionObject {
   user: {
@@ -42,17 +41,18 @@ interface Session extends CookieSessionInterfaces.CookieSessionObject {
   };
 }
 interface GetOrdersRequest extends Request {
-  params: { customerId: string };
+  params: { customerId?: string };
   session?: CookieSessionInterfaces.CookieSessionObject | null | undefined;
 }
 
-export const getOrders = async (
-  req: GetOrdersRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const getOrders = tryCatch(
+  async (req: GetOrdersRequest, res: Response, next: NextFunction) => {
     const { customerId } = req.params;
+
+    if (!customerId) {
+      throw new ServerError(StatusCodes.BAD_REQUEST, "No customer id given");
+    }
+
     const session = req.session as Session;
     if (customerId != session?.user.customerId) {
       throw new ServerError(
@@ -63,11 +63,5 @@ export const getOrders = async (
 
     const orders = await findByCustomerId(customerId);
     return res.status(StatusCodes.OK).json(orders);
-  } catch (error) {
-    console.log(error);
-    throw new ServerError(
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      "Failed to save order"
-    );
   }
-};
+);

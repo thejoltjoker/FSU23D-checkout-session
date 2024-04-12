@@ -3,9 +3,8 @@ import cors from "cors";
 import "dotenv/config";
 import cookieSession from "cookie-session";
 import router from "./routers";
-import { StatusCodes } from "http-status-codes";
 import helmet from "helmet";
-import { ServerError } from "./models/ServerError";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
@@ -22,20 +21,7 @@ app.use(
 
 app.use("/api", router);
 
-app.use("/error", (req: Request, res: Response) => {
-  throw new ServerError(500, "Something went wrong");
-});
-
-app.use((err: ServerError, req: Request, res: Response, next: NextFunction) => {
-  console.error(err);
-
-  res.status(err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-    error: {
-      message: err.message || "Something went wrong",
-      statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    },
-  });
-});
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);
