@@ -1,4 +1,3 @@
-// TODO add error handling for failed login
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,6 +6,7 @@ import { useUserContext } from "../contexts/UserContext";
 import { login } from "../services/auth.service";
 
 const LoginPage = () => {
+  const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -14,10 +14,15 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setIsLoading(true);
-    const response = await login(email, password);
-    if (response) {
-      setUser(response);
+    try {
+      setIsLoading(true);
+      const response = await login(email, password);
+      if (response) {
+        setUser(response);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsError(true);
       setIsLoading(false);
     }
   };
@@ -68,6 +73,9 @@ const LoginPage = () => {
             </a>
             .
           </p>
+          {isError && (
+            <p className="text-brown-950/60">Wrong username or password</p>
+          )}
           <Button type="submit" isDisabled={isLoading} className="mx-auto w-40">
             {isLoading ? "Logging in" : "Log in"}
           </Button>

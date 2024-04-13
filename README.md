@@ -57,6 +57,7 @@ This project is an assignment to create a webshop where users can place orders a
 4. Run `npm run start` in the `server` directory.
 5. Open a new terminal and run `npm run dev` in the `client` directory.
 6. Navigate to <http://localhost:5173> in your favorite browser to use the app.
+7. Use the promo code `BANANZA` during checkout.
 
 #### Client Setup
 

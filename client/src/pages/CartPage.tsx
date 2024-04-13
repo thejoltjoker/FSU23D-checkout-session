@@ -7,9 +7,7 @@ import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
 import { Coupon } from "../models/Coupon";
 import { ServicePoint } from "../models/ServicePoint";
 
-// TODO Mobile layout
 // TODO Add validation before checkout
-// TODO Disable checkout button until valid
 const CartPage = () => {
   const [coupon, setCoupon] = useState<Coupon>();
   const [servicePoint, setServicePoint] = useState<ServicePoint>();
