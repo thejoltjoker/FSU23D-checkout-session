@@ -46,7 +46,7 @@ export const getSession = tryCatch(
     }
     const { sessionId } = req.params;
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["customer"],
+      expand: ["customer", "line_items"],
     });
     res.status(StatusCodes.OK).json(session);
   }
