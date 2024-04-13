@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import CancelSummary from "../components/CancelSummary";
-import { Session } from "../models/Session";
+import CancelSummary from "../../components/CancelSummary";
+import { Session } from "../../models/Session";
 
 const CancelPage = () => {
   const [session, setSession] = useState<Session>();

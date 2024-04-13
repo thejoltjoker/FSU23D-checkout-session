@@ -6,11 +6,12 @@ import {
   Text,
 } from "react-aria-components";
 import { ServicePoint } from "../models/ServicePoint";
-type ServicePointSelectionProps = {
+
+interface ServicePointSelectionProps {
   servicePoints: ServicePoint[];
   servicePoint: ServicePoint | undefined;
   setServicePoint: (ServicePoint: ServicePoint) => void;
-};
+}
 
 const ServicePointSelection = ({
   servicePoints,
@@ -32,7 +33,7 @@ const ServicePointSelection = ({
       {servicePoints.map((sp) => (
         <Radio
           value={sp.servicePointId}
-          className="data-[selected]:before:border-6 before:border-1.5 flex items-center gap-2 font-heading text-xl font-bold uppercase transition-all before:block before:size-5 before:rounded-full before:border-brown-950/40 before:bg-white data-[selected]:before:border-banana-500 data-[selected]:before:bg-banana-200"
+          className="flex items-center gap-2 font-heading text-xl font-bold uppercase transition-all before:block before:size-5 before:rounded-full before:border-1.5 before:border-brown-950/40 before:bg-white data-[selected]:before:border-6 data-[selected]:before:border-banana-500 data-[selected]:before:bg-banana-200"
         >
           <span className="flex flex-col">
             <span>{sp.name}</span>

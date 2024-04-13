@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Loading from "../components/Loading";
-import ShopProductList from "../components/ShopProductList";
-import { Product } from "../models/Product";
-import { getAllProducts } from "../services/products.service";
+import Loading from "../../components/Loading";
+import { Product } from "../../models/Product";
+import { getAllProducts } from "../../services/products.service";
+import ShopProductList from "./components/ShopProductList";
 
 const ShopPage = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,12 +1,12 @@
 import _ from "lodash";
-import { CartItem } from "../models/CartItem";
+import { CartItem } from "../../../models/CartItem";
 import CartListingItem from "./CartListingItem";
 
-type Props = {
+interface CartItemListProps {
   items: CartItem[];
-};
+}
 
-const CartItemList = ({ items }: Props) => {
+const CartItemList = ({ items }: CartItemListProps) => {
   return (
     <>
       <h2 className="pb-4 text-4xl text-brown-950">Your cart</h2>

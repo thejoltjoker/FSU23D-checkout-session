@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import AccountPage from "../pages/AccountPage";
-import CancelPage from "../pages/CancelPage";
-import CartPage from "../pages/CartPage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import ShopPage from "../pages/ShopPage";
-import SuccessPage from "../pages/SuccessPage";
+import AccountPage from "../views/Account/AccountPage";
+import CartPage from "../views/Cart/CartPage";
+import CancelPage from "../views/Checkout/CancelPage";
+import SuccessPage from "../views/Checkout/SuccessPage";
+import ShopPage from "../views/Shop/ShopPage";
+import LoginPage from "../views/Login/LoginPage";
+import RegisterPage from "../views/Register/RegisterPage";
 
 export const router = createBrowserRouter([
   {

@@ -16,6 +16,7 @@ const Footer = () => {
               <NavLink to={"/login"}>Log in</NavLink>
             )}
           </li>
+          <li>{user && <NavLink to={"/logout"}>Log out</NavLink>}</li>
         </ul>
       </div>
     </footer>

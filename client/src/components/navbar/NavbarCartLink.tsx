@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { NavLink } from "react-router-dom";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
+import { useShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
 const NavbarCartLink = () => {
   const { items } = useShoppingCartContext();

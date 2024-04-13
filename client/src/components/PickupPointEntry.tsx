@@ -2,14 +2,16 @@ import axios from "axios";
 import { useState } from "react";
 
 import { Coupon } from "../models/Coupon";
-import { Button } from "./Button";
+import { Button } from "./buttons/Button";
 import PostalCodeInput from "./PostalCodeInput";
 
-type Props = {
+interface PickupPointEntryProps {
   setPickupPoint: (coupon: Coupon) => void;
-};
+}
 
-const PickupPointEntry = ({ setPickupPoint: setCoupon }: Props) => {
+const PickupPointEntry = ({
+  setPickupPoint: setCoupon,
+}: PickupPointEntryProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isValid, setIsValid] = useState(false);

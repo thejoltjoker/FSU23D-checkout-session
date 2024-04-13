@@ -1,13 +1,13 @@
 import getSymbolFromCurrency from "currency-symbol-map";
 import { useState } from "react";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
-import { Product } from "../models/Product";
-import { ShoppingCartActionType } from "../reducers/shoppingCartReducer";
-import NumberField from "./NumberField";
+import NumberField from "../../../components/forms/NumberField";
+import { useShoppingCartContext } from "../../../contexts/ShoppingCartContext";
+import { Product } from "../../../models/Product";
+import { ShoppingCartActionType } from "../../../reducers/shoppingCartReducer";
 
-type CartListingItemProps = {
+interface CartListingItemProps {
   product: Product;
-};
+}
 
 const CartListingItem = ({ product }: CartListingItemProps) => {
   const { items, dispatch } = useShoppingCartContext();

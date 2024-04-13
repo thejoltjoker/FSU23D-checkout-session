@@ -4,14 +4,12 @@ import {
   ButtonProps as RACButtonProps,
 } from "react-aria-components";
 import { tv } from "tailwind-variants";
-import { focusRing } from "./utils";
 
 export interface ButtonProps extends RACButtonProps {
   variant?: "primary";
 }
 
 const button = tv({
-  extend: focusRing,
   base: "px-5 h-12 text-center transition rounded-lg cursor-default font-heading text-lg cursor-pointer",
   variants: {
     variant: {

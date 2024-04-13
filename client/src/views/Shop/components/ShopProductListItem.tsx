@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Button } from "../components/Button";
-import NumberField from "../components/NumberField";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
-import { Product } from "../models/Product";
-import { ShoppingCartActionType } from "../reducers/shoppingCartReducer";
+import { Button } from "../../../components/buttons/Button";
+import NumberField from "../../../components/forms/NumberField";
+import { useShoppingCartContext } from "../../../contexts/ShoppingCartContext";
+import { Product } from "../../../models/Product";
+import { ShoppingCartActionType } from "../../../reducers/shoppingCartReducer";
 
-type ShopProductItemProps = {
+interface ShopProductListItemProps {
   product: Product;
-};
+}
 
-const ShopProductItem = ({ product }: ShopProductItemProps) => {
+const ShopProductListItem = ({ product }: ShopProductListItemProps) => {
   const { dispatch } = useShoppingCartContext();
   const [quantity, setQuantity] = useState(1);
   const [buttonText, setButtonText] = useState("Add to cart");
@@ -75,4 +75,4 @@ const ShopProductItem = ({ product }: ShopProductItemProps) => {
   );
 };
 
-export default ShopProductItem;
+export default ShopProductListItem;

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import CartItemList from "../components/CartItemList";
-import CartSummary from "../components/CartSummary";
-import CheckoutShipping from "../components/CheckoutShipping";
-import PromotionEntry from "../components/PromotionEntry";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
-import { Coupon } from "../models/Coupon";
-import { ServicePoint } from "../models/ServicePoint";
+import { useShoppingCartContext } from "../../contexts/ShoppingCartContext";
+import { Coupon } from "../../models/Coupon";
+import { ServicePoint } from "../../models/ServicePoint";
+import CartDiscount from "./components/CartDiscount";
+import CartItemList from "./components/CartItemList";
+import CartShipping from "./components/CartShipping";
+import CartSummary from "./components/CartSummary";
 
 // TODO Add validation before checkout
 const CartPage = () => {
@@ -19,14 +19,12 @@ const CartPage = () => {
         <section className="mb-8">
           <CartItemList items={items} />
         </section>
-        <section className="rounded-3xl bg-banana-50 p-8 shadow-box">
-          <h4 className="text-2xl">Discount</h4>
-          <p className="pb-4 text-brown-950/60">Have a discount code?</p>
-          <PromotionEntry setCoupon={(value: Coupon) => setCoupon(value)} />
+        <section>
+          <CartDiscount setCoupon={(value) => setCoupon(value)} />
         </section>
 
         <section>
-          <CheckoutShipping
+          <CartShipping
             servicePoint={servicePoint}
             setServicePoint={setServicePoint}
           />

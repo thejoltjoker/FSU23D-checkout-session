@@ -3,14 +3,14 @@ import { useState } from "react";
 
 import { Form } from "react-aria-components";
 import { Coupon } from "../models/Coupon";
-import { Button } from "./Button";
-import TextField from "./TextField";
+import { Button } from "./buttons/Button";
+import TextField from "./forms/TextField";
 
-type Props = {
+interface PromotionEntryProps {
   setCoupon: (coupon: Coupon) => void;
-};
+}
 
-const PromotionEntry = ({ setCoupon }: Props) => {
+const PromotionEntry = ({ setCoupon }: PromotionEntryProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isValid, setIsValid] = useState(false);

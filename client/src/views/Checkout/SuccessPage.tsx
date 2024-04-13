@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import SuccessSummary from "../components/SuccessSummary";
-import { useShoppingCartContext } from "../contexts/ShoppingCartContext";
-import { Session } from "../models/Session";
-import { ShoppingCartActionType } from "../reducers/shoppingCartReducer";
-import { Order } from "../schemas/OrderSchema";
-import { saveOrder } from "../services/orders.service";
-// TODO add order to json file if successful
+import SuccessSummary from "../../components/SuccessSummary";
+import { useShoppingCartContext } from "../../contexts/ShoppingCartContext";
+import { Session } from "../../models/Session";
+import { ShoppingCartActionType } from "../../reducers/shoppingCartReducer";
+import { Order } from "../../schemas/OrderSchema";
+import { saveOrder } from "../../services/orders.service";
+// TODO Send confirmation email
 
 const SuccessPage = () => {
   const [session, setSession] = useState<Session>();

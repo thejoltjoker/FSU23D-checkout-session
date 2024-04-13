@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
-
 import { Form } from "react-aria-components";
-import { ServicePoint } from "../models/ServicePoint";
-import { Button } from "./Button";
-import ServicePointSelection from "./ServicePointSelection";
-import TextField from "./TextField";
+import ServicePointSelection from "../../../components/ServicePointSelection";
+import { Button } from "../../../components/buttons/Button";
+import TextField from "../../../components/forms/TextField";
+import { ServicePoint } from "../../../models/ServicePoint";
 
-type Props = {
+interface CartShippingProps {
   servicePoint: ServicePoint | undefined;
   setServicePoint: (servicePoint: ServicePoint) => void;
-};
+}
 
-const CheckoutShipping = ({ servicePoint, setServicePoint }: Props) => {
+const CartShipping = ({ servicePoint, setServicePoint }: CartShippingProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -84,4 +83,4 @@ const CheckoutShipping = ({ servicePoint, setServicePoint }: Props) => {
   );
 };
 
-export default CheckoutShipping;
+export default CartShipping;

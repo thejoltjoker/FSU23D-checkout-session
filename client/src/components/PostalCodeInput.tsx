@@ -1,12 +1,15 @@
-import TextField from "./TextField";
+import TextField from "./forms/TextField";
 
 // import { Input, Label, TextField } from "react-aria-components";
-type Props = {
+interface PostalCodeInputProps {
   postalCode: string;
   setPostalCode: (value: string) => void;
-};
+}
 
-const PostalCodeInput = ({ postalCode, setPostalCode }: Props) => {
+const PostalCodeInput = ({
+  postalCode,
+  setPostalCode,
+}: PostalCodeInputProps) => {
   return (
     <TextField value={postalCode} onChange={(str) => setPostalCode(str)} />
   );

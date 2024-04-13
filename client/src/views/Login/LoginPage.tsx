@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Button } from "../components/Button";
-import { useUserContext } from "../contexts/UserContext";
-import { login } from "../services/auth.service";
+import { Button } from "../../components/buttons/Button";
+import { useUserContext } from "../../contexts/UserContext";
+import { login } from "../../services/auth.service";
 
 const LoginPage = () => {
   const [isError, setIsError] = useState(false);

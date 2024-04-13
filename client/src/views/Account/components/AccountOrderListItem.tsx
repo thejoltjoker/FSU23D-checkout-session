@@ -1,10 +1,11 @@
 import { format } from "date-fns";
-import { Order } from "../schemas/OrderSchema";
-type Props = {
-  order: Order;
-};
+import { Order } from "../../../schemas/OrderSchema";
 
-const AccountOrderListItem = ({ order }: Props) => {
+interface AccountOrderListItemProps {
+  order: Order;
+}
+
+const AccountOrderListItem = ({ order }: AccountOrderListItemProps) => {
   return (
     <li className="flex flex-wrap items-center gap-1 rounded-3xl bg-banana-50 p-8 shadow-box">
       <h6 className="shrink grow basis-1/3">Order ID</h6>
