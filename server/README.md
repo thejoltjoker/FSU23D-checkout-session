@@ -32,6 +32,7 @@ Before you begin, make sure you have the following installed:
    SESSION_SECRET=my-session-secret
    STRIPE_API_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    POSTNORD_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   RESEND_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
 
 4. Start the server with the following command:
